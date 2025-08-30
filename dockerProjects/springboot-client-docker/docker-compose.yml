@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+#service 1: definition Springboot aplikacja client
+  client:
+    image: client
+    container_name: client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+        - "12121:12121"
+    restart: always

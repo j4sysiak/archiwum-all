@@ -1,0 +1,10 @@
+version: '3'
+services:
+#  commandcenter:
+#    build: commandcenter/
+#    ports:
+#      - "8050:8080"
+#  spaceship:
+#    build: spaceship/
+#    ports:
+#      - "8060:8080"

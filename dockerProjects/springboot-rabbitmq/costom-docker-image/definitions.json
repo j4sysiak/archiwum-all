@@ -1,0 +1,97 @@
+{
+  "users": [
+    {
+      "name": "guest",
+      "password": "guest",
+      "tags": "administrator"
+    },
+    {
+      "name": "mike",
+      "password": "mike",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "mike",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "policies": [],
+  "exchanges": [
+    {
+      "name": "alien.exchange",
+      "vhost": "/",
+      "type": "fanout",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "alien.furry",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+        "name": "alien.chubby",
+        "vhost": "/",
+        "durable": true,
+        "auto_delete": false,
+        "arguments": {}
+    },
+    {
+      "name": "alien.tall",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+    ],
+  "bindings": [
+    {
+      "source": "alien.exchange",
+      "vhost": "/",
+      "destination": "alien.furry",
+      "destination_type": "queue",
+      "routing_key": "alien.furry.#",
+      "arguments": {}
+    },
+    {
+      "source": "alien.exchange",
+      "vhost": "/",
+      "destination": "alien.tall",
+      "destination_type": "queue",
+      "routing_key": "alien.tall.#",
+      "arguments": {}
+    },
+    {
+      "source": "alien.exchange",
+      "vhost": "/",
+      "destination": "alien.chubby",
+      "destination_type": "queue",
+      "routing_key": "alien.chubby.#",
+      "arguments": {}
+    }
+  ]
+}

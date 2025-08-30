@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.6</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.example</groupId>
+	<artifactId>demo-devops</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>demo-devops</name>
+	<description>Demo project for Spring Boot</description>
+	<url>http://maven.apache.org</url>
+	<packaging>war</packaging>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<failOnMissingWebXml>true</failOnMissingWebXml>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.2.4.RELEASE</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<extensions>false</extensions>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+<!--	<distributionManagement>-->
+<!--		<snapshotRepository>-->
+<!--			<id>nexus-snapshots</id>-->
+<!--			<url>http://localhost:9081/nexus/content/repositories/snapshots</url>-->
+<!--		</snapshotRepository>-->
+<!--	</distributionManagement>-->
+
+    <!-- NEXUS -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>mavendeployment</id>
+			<url>http://localhost:9081/nexus/content/repositories/maven-snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>mavendeployment</id>
+			<url>http://localhost:9081/nexus/content/repositories/maven-release</url>
+		</repository>
+	</distributionManagement>
+
+</project>

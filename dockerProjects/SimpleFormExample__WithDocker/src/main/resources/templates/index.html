@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>SimpleForm</title>
+</head>
+<body>
+
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+<div class="container">
+    <div class="row">
+        <div>
+            <h1>Registration Form</h1>
+        </div>
+        <form th:action="@{registration}" th:object="${student}" method="post">
+        <div>
+            <label>Student Name</label>
+            <input type="text" id="stname" class="form-control" name="stname">
+        </div>
+        <div>
+            <label>Course</label>
+            <input type="text" id="course" class="form-control" name="course">
+        </div>
+        <div>
+            <label>Fee</label>
+            <input type="text" id="fee" class="form-control" name="fee">
+        </div>
+            </br>
+        <div>
+            <input type="submit" value="submit"/>
+        </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -d '{"name": "pyramid", "fuel": 99}' "localhost:8080/spaceship/"

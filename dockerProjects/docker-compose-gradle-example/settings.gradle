@@ -1,0 +1,4 @@
+rootProject.name = 'docker-compose-gradle-example'
+include 'test'
+include 'commandcenter'
+

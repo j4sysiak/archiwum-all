@@ -1,0 +1,8 @@
+version: '3.1'
+services:
+  mikesapp:
+      image: mikesapp
+      container_name: mikesapp
+      build: .
+      ports:
+        - "9000:8080"

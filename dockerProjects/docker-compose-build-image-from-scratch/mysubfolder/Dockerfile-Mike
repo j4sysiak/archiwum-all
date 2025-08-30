@@ -1,0 +1,7 @@
+FROM alpine:latest
+RUN apk update; apk add curl
+RUN mkdir /app
+WORKDIR /app
+RUN wget https://cdn.azul.com/zulu/bin/zulu14.28.21-ca-jre14.0.1-linux_musl_x64.tar.gz
+RUN tar -xvf zulu14.28.21-ca-jre14.0.1-linux_musl_x64.tar.gz
+CMD ["echo", "hello this is my docker image"]

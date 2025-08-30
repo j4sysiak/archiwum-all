@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  customk6:
+    build: docker/
+    network_mode: host
+    command: "run -o cloud /script.js"

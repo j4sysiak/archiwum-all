@@ -1,0 +1,40 @@
+version: '3'
+services:
+#service 1: definition of mysql
+  db:
+    image: mysql
+    container_name: mysql-db6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: animal
+    ports:
+      - "3307:3306"
+    volumes:
+      - C:/tmp/06-Data/MySQLData/mysql-db6:/var/lib/mysql
+      
+#service 2: definition of Springboot aplication api
+  api:
+    image: api
+    container_name: api
+    build: 
+       context: ./springboot-api-docker
+       dockerfile: Dockerfile
+    ports:
+      - "10101:10101"
+    restart: always
+    depends_on:
+      - db
+
+#service 3: definition of Springboot aplication client
+  client:
+    image: client
+    container_name: client
+    build: 
+       context: ./springboot-client-docker
+       dockerfile: Dockerfile
+    ports:
+      - "12121:12121"
+    restart: always
+    depends_on:
+      - api

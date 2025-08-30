@@ -1,0 +1,7 @@
+version: "3"
+services:
+   mikesapp:
+     image: mikeimages:coolest
+     build:
+       context: ./mysubfolder
+       dockerfile: Dockerfile-Mike
