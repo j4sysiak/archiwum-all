@@ -1,0 +1,128 @@
+
+.home-jumbo {
+    background: url('../img/dark.jpg') center;
+}
+
+.navbar-brand {
+    margin-left: 200px;
+    font-weight: 40;
+
+}
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+}
+
+
+.footer {
+    background-color: #11426c;
+}
+
+.lessons {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.roundCard {
+    background-color: #1290b7;
+}
+
+.grade {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.days {
+    align-content: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.subjects {
+    align-content: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.lessons {
+    font-weight: 500;
+    margin-right: -5px;
+}
+
+.day-col {
+    align-content: center;
+    margin-right: 2px;
+    margin-left: -3px;
+    font-weight: 700;
+}
+
+.sub-col {
+    margin-right: 1px;
+    font-weight: 700;
+}
+
+.col1 {
+    margin-top: 5px;
+    text-align: center;
+    font-weight: 200;
+}
+
+.col2 {
+    margin-top: 5px;
+    text-align: center;
+    font-weight: 200
+
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+body > * {
+    flex-shrink: 0;
+}
+
+.col3 {
+    text-align: center;
+    font-weight: 200;
+}
+
+.body {
+    height: 100%;
+}
+
+.user_add {
+    margin-right: 30px;
+    width: 150px;
+    bottom: 0;
+}
+
+.radio_check {
+    text-align: inherit;
+}
+
+.avatars {
+    margin-left: 250px;
+}
+
+
+
+
+

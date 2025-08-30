@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>EduTrace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="../static/css/firstContact.css" th:href="@{/css/firstContact.css}" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $("#additionFailed").modal('show');
+        });
+    </script>
+</head>
+<body>
+<div th:if="${additionFailed}">
+    <div id="additionFailed" class="modal fade addError">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold">Nie udało się dodać ucznia - nieudana walidacja
+                        danych:</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body ml-2">
+                    <ul th:each="error:${errors}">
+                        <li class="font-italic" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<header>
+    <div id="presentation" class="view">
+        <div class="mask rgba-black-strong">
+            <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+                <div class="row d-flex logo-text justify-content-center text-center">
+                    <div class="col-md-12 ">
+                        <h2 class="display-2 mt-5 mb-5">EduTrace</h2>
+                        <h4 class="white-text font-italic follow display-4 side-text mt-5">Follow the trace of the
+                            progress</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="mt-5">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="mb-5 font-weight-bold">Witaj !</h2>
+            <div class="row d-flex justify-content-center mb-4">
+                <div class="col-md-8">
+                    <p class="grey-text">Cieszymy się, że dołączyłeś do platformy EduTrace<br>Dzięki dostarczonym
+                        narzędziom: </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <i class="fa fa-database fa-4x" aria-hidden="true"></i>
+                    <h4 class="my-3 font-weight-bold">Zagregujesz dane</h4>
+                    <p class="grey-text text-justify">Koniec z niewydajnym zbieraniem danych w skoroszytach, zeszytach
+                        lub notatnikach. Zbierz kontekstowe informacje na temat pracy każdego ucznia w jednym miejscu.
+                        Posiadając dostęp zarówno do danych bieżących jak i historycznych będziesz w stanie mierzyć,
+                        badać oraz analizować postęp swoich uczniów</p>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <i class="fa fa-line-chart fa-4x" aria-hidden="true"></i>
+                    <h4 class="my-3 font-weight-bold">Zautomatyzujesz raporty</h4>
+                    <p class="grey-text text-justify">Mając dostęp do spersonalizowanych danych uwolnisz się od ręcznego
+                        podsumowywania lekcji na papierze lub arkuszach kalkulacyjnych. Wybierz po prostu kluczowe dla
+                        raportu informacje, a raport wygeneruje się sam</p>
+                </div>
+                <div class="col-md-4 mb-1">
+                    <i class="fa fa-exchange fa-4x" aria-hidden="true"></i>
+                    <h4 class="my-3 font-weight-bold">Ulepszysz przepływ informacji</h4>
+                    <p class="grey-text text-justify">Posiadając dostęp do spresonalizowanych informacji takich jak
+                        zadania domowe, notatki dotyczące konkretnych lekcji lub dane kontaktowe ucznia
+                        wyeliminunjesz wąskie gardła pracy z uczniem oraz komunikacji z opiekunem</p>
+                </div>
+
+            </div>
+        </div>
+        <h2 class="mb-5 font-weight-bold text-center">W tym celu: </h2>
+        <hr class="my-5">
+        <section id="addButton" class="text-center">
+            <button class="btn-secondary rounded addButton  btn-lg" data-toggle="modal" data-target="#addStudent">Dodaj
+                swojego pierwszego ucznia
+            </button>
+        </section>
+        <hr class="my-5">
+    </div>
+
+    <div class="row d-flex mr-5 mb-3 justify-content-end">
+        <div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Dodaj nowego ucznia</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row ">
+                            <div class="col-lg-12 mx-auto">
+                                <div class="card mt-2 mx-auto p-4 bg-light">
+                                    <div class="card-body bg-light">
+                                        <div class="container">
+                                            <form id="lesson-form" role="form" action="#" th:action="@{/add-student}"
+                                                  method="post">
+                                                <h6>Wybierz avatara ucznia: </h6>
+                                                <div class="row ">
+                                                    <div class="avatars d-flex  ml-4  mb-3">
+                                                        <div class="form-check radio_check mb-3">
+                                                            <div class="row mb-2">
+                                                                <div class="col border-right">
+                                                                    <img src="../static/img/avatars/maleAvatar1.png"
+                                                                         th:src="@{/img/avatars/maleAvatar1.png}"
+                                                                         class="rounded  img-fluid" width="155">
+                                                                    <div>
+                                                                        <input class="form-check-input ml-0"
+                                                                               type="radio" name="avatar"
+                                                                               value="/img/avatars/maleAvatar1.png"
+                                                                               required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col border-right">
+                                                                    <img src="../static/img/avatars/maleAvatar2.png"
+                                                                         th:src="@{/img/avatars/maleAvatar2.png}"
+                                                                         class="rounded  img-fluid" width="155">
+                                                                    <div>
+                                                                        <input class="form-check-input ml-0"
+                                                                               type="radio" name="avatar"
+                                                                               value="/img/avatars/maleAvatar2.png">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col border-right">
+                                                                    <img src="../static/img/avatars/maleAvatar3.png"
+                                                                         th:src="@{/img/avatars/maleAvatar3.png}"
+                                                                         class="rounded  img-fluid" width="155">
+                                                                    <div>
+                                                                        <input class="form-check-input ml-0"
+                                                                               type="radio" name="avatar"
+                                                                               value="/img/avatars/maleAvatar3.png">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col border-right">
+                                                                    <img src="../static/img/avatars/femaleAvatar1.png"
+                                                                         th:src="@{/img/avatars/femaleAvatar1.png}"
+                                                                         class="rounded  img-fluid" width="155">
+                                                                    <div>
+                                                                        <input class="form-check-input ml-0"
+                                                                               type="radio" name="avatar"
+                                                                               value="/img/avatars/femaleAvatar1.png">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col ">
+                                                                    <img src="../static/img/avatars/femaleAvatar2.png"
+                                                                         th:src="@{/img/avatars/femaleAvatar2.png}"
+                                                                         class="rounded img-fluid" width="155">
+                                                                    <div>
+                                                                        <input class="form-check-input ml-0"
+                                                                               type="radio" name="avatar"
+                                                                               value="/img/avatars/femaleAvatar2.png">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="name">Imię ucznia</label>
+                                                                    <input id="name" type="text" name="name"
+                                                                           class="form-control" placeholder=" Adam"
+                                                                           required="required" data-error="Brak opisu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="surname">Nazwisko ucznia</label>
+                                                                    <input id="surname" type="text" name="surname"
+                                                                           class="form-control" placeholder="Wieżbicki"
+                                                                           required="required" data-error="Brak opisu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="phone">Telefon</label>
+                                                                    <input id="phone" type="text" name="phone"
+                                                                           class="form-control"
+                                                                           placeholder="111-555-777" required="required"
+                                                                           data-error="Brak opisu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="mail">E-mail</label>
+                                                                    <input id="mail" type="text" name="mail"
+                                                                           class="form-control"
+                                                                           placeholder="adamwieżbicki@op.pl"
+                                                                           required="required" data-error="Brak opisu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="parent">Opiekun</label>
+                                                                    <input id="parent" type="text" name="parent"
+                                                                           class="form-control"
+                                                                           placeholder="Anna Wieżbicka"
+                                                                           required="required" data-error="Brak opisu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="parentPhone">Telefon opiekuna</label>
+                                                                    <input id="parentPhone" type="text"
+                                                                           name="parentPhone" class="form-control"
+                                                                           placeholder="555 777 888" required="required"
+                                                                           data-error="Brak opisu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="subject">Klasa</label>
+                                                                <select id="subject" name="grade" class="form-control"
+                                                                        required="required"
+                                                                        data-error="Wybierz przedmiot">
+                                                                    <option selected disabled>Wybierz klasę</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6</option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p>Zaznacz interesujące przedmioty</p>
+                                                    <div class="row text-center">
+
+                                                        <div class="col-12">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       id="math" name="subject" value="Matematyka">
+                                                                <label class="form-check-label"
+                                                                       for="math">Matematyka </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       id="physics" name="subject" value="Fizyka">
+                                                                <label class="form-check-label"
+                                                                       for="physics">Fizyka </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" id="eng"
+                                                                       name="subject" value="Angielski">
+                                                                <label class="form-check-label"
+                                                                       for="eng">Angielski</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <p>Wybierz dni zajęć</p>
+                                                    <div class="row text-center">
+                                                        <div class="col-12">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       name="day" id="mon" value="Poniedziałek">
+                                                                <label class="form-check-label"
+                                                                       for="mon">Poniedziałek </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" id="tue"
+                                                                       name="day" value="Wtorek">
+                                                                <label class="form-check-label"
+                                                                       for="tue">Wtorek </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox" id="wed"
+                                                                       name="day" value="Środa">
+                                                                <label class="form-check-label" for="wed">Środa</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       id="thur" name="day" value="Czwartek">
+                                                                <label class="form-check-label"
+                                                                       for="thur">Czwartek</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       id="frid" name="day" value="Piątek">
+                                                                <label class="form-check-label"
+                                                                       for="frid">Piątek</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="extraInfo">Informacje dodatkowe</label>
+                                                                <textarea id="extraInfo" name="extraInfo"
+                                                                          class="form-control"
+                                                                          placeholder="Uwielbia kursy językowe" rows="4"
+                                                                          required="required"
+                                                                          data-error="Please, leave us a message."></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <input type="submit"
+                                                                   class="btn btn-block btn-success btn-send pt-2 btn-block "
+                                                                   value="Dodaj ucznia">
+                                                        </div>
+                                                        <div class="col-md-12 mt-2">
+                                                            <input type="button" class="btn btn-block btn-danger"
+                                                                   data-dismiss="modal" value="Anuluj">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

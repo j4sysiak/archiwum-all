@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginView</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link href="../static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron home-jumbo  col-lg-12  ">
+        <div class="container jumbo-text align-middle a text-center text-white jumbo-container">
+            <h1 class="display-2">EduTrace</h1>
+            <h5>Trace of the progress</h5>
+        </div>
+    </div>
+    <div class=" shadow p-3 mb-5 col-lg-12  bg-white rounded">
+        <div class="alert " th:if="${registrationOutcome != null}">
+            <div th:if="${registrationOutcome}" class="alert alert-success alert-dismissible fade show text-center"
+                 role="alert">
+                <strong>Udało się !</strong><br> Możesz się teraz zalogować do EduTrace
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="!${registrationOutcome}" class="alert alert-danger alert-dismissible fade show text-center"
+                 role="alert">
+                <strong>Nie udało się zarejestrować konta</strong><br> Hasła nie są zgodne lub istnieje taki użytkownik.
+                Spróbuj wypełnić jeszcze raz formularz
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="alert " th:if="${logFail}">
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <strong>Wprowadzono błędne poświadczenia</strong><br> Spróbuj jeszcze raz, skorzystaj z formularza
+                resetu poświadczeń lub skontaktuj się z administratorem
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="alert " th:if="${registrationFail}">
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <strong>Nie udało się zarejestrować konta - nieudana walidacja danych. Spełnione muszą być
+                    kryteria</strong><br>
+                <ul th:each="error:${errors}">
+                    <li th:text="${error}"> Hasło i login muszą mieć min. 4 znaki i max. 20</li>
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        <form action="#" th:action="@{/processlogin}" method="post">
+            <div class="form-group col-lg-10 offset-1">
+                <label for="login">Login</label>
+                <input type="text" class="form-control d-flex text-center" id="login" name="login"
+                       aria-describedby="emailHelp" placeholder="Wprowadź login">
+            </div>
+            <div class="form-group col-lg-10 offset-1">
+                <label for="password">Hasło</label>
+                <input type="password" class="form-control d-flex text-center" id="password" name="password"
+                       placeholder="Hasło">
+            </div>
+            <div class="form-group logButoon col-lg-10 offset-1">
+                <button type="submit " value="Login" th:value="Login" class="btn-block btn-primary">Zaloguj</button>
+            </div>
+        </form>
+
+        <div class=" align-middle form-group text-center logButoon col-lg-10 offset-1">
+            <a href="#" class="display-7 " data-toggle="modal" data-target="#register">Zarejestruj się | Przypomnij
+                hasło </a>
+        </div>
+
+        <!--Register form -->
+        <div class="row">
+            <div class="modal fade " id="register">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content align">
+
+                        <div class="modal-body">
+                            <div class="jumbotron home-jumbo  col-lg-12 ">
+                                <div class="container jumbo-text align-middle a text-center text-white jumbo-container">
+                                    <h1 class="display-2">EduTrace</h1>
+                                    <h5>Trace of the progress</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8 col-xl-9 mx-auto">
+                                    <div class="card flex-row">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">Zarejestrj się</h5>
+                                            <form class="form-signin" action="#" th:action="@{/register}"
+                                                  th:object="${teacher}" method="post">
+                                                <div class="form-label-group">
+                                                    <label for="inputUserame">Login</label>
+                                                    <input type="text" id="inputUserame" th:field="*{login}"
+                                                           minlength="4" maxlength="10" class="form-control text-center"
+                                                           placeholder="Wprowadź login" required autofocus>
+                                                    <br>
+                                                </div>
+
+                                                <div class="form-label-group">
+                                                    <label for="inputEmail">Adres e-mail</label>
+                                                    <input type="email" id="inputEmail" th:field="*{mail}"
+                                                           class="form-control text-center"
+                                                           placeholder="Wprowadź adres e-mail" required>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="form-label-group">
+                                                    <label for="inputPassword">Hasło</label>
+                                                    <input type="password" id="inputPassword" th:field="*{password}"
+                                                           class="form-control text-center"
+                                                           placeholder=" Wprowadź hasło" required>
+                                                    <br>
+                                                </div>
+
+                                                <div class="form-label-group">
+                                                    <label for="inputConfirmPassword">Potwierdź hasło</label>
+                                                    <input type="password" id="inputConfirmPassword"
+                                                           th:field="*{passwordConfirm}"
+                                                           class="form-control text-center"
+                                                           placeholder="Potwierdź hasło" required>
+                                                    <br>
+                                                </div>
+
+                                                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                                    Zarejestruj się
+                                                </button>
+                                                <hr class="my-4">
+                                            </form>
+                                            <button class="btn btn-lg btn-block " type="submit"> Przypomnij hasło
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

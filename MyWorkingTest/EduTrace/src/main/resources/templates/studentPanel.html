@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>EduTrace - Student Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="../static/css/studentPanel.css" th:href="@{/css/studentPanel.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<div class="jumbotron home-jumbo text-center text-white" style="margin-bottom:0">
+    <a href="#" th:href="@{/main-panel}"><h1 class="display-2 text-white">EduTrace</h1></a>
+    <h5>Trace of the progress</h5>
+</div>
+<nav class="navbar navbar-expand-sm bg-dark  sticky-top navbar-dark">
+    <div class="card">
+        <div class="row ">
+            <div class="col  align-self-center">
+                <div class="col">
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" width="45"
+                         th:src="${weather.provideIconAdress()}">
+                </div>
+            </div>
+            <div class=" align-self-center">
+                <div class="">
+                    <h8 th:text="${weather.getDescription()}">test</h8>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ml-1">
+                    <h5 class="text-info" th:text="|${weather.getTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ">
+                    <h5 class="text" th:text="|${weather.getFeelsLikeTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ">
+                    <div><img th:src="@{/img/sunrisee.png}" src="../static/img/sunrisee.png" width="40"></div>
+                    <h8 th:text="${weather.getSunrise()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="first-col ">
+                    <div class="ml-1"><img th:src="@{/img/sunsett.png}" src="../static/img/sunsett.png" width="40">
+                    </div>
+                    <h8 th:text="${weather.getSunset()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="first-col ">
+                    <img th:src="@{/img/wind-solid.svg}" src="../static/img/wind-solid.svg" width="40">
+                    <h8 th:text="|${weather.getWindSpeed()} m/s|">Sunny</h8>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end " id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item ml-4 mr-4">
+                <div class="text-white font-italic" th:text="${quote.getQuote()}"></div>
+                <div class="text-white text-right " th:text="${quote.getAuthor()}"></div>
+            </li>
+            <li class="nav-item display-5 mr-5">
+                <a class="nav-link" href="#" th:href="@{/archive}">Archiwum</a>
+            </li>
+            <li class="nav-item display-5">
+                <a class="nav-link mr-5" href="#" th:href="@{/log-out}">Wyloguj</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5 mb-5">
+    <div class="row g-0">
+        <div class="col-md-8 border-right">
+            <div class="p-3  shadow bg-white">
+                <div class="d-flex  justify-content-center align-items-center">
+                    <h4 class="heading1 text-center display-5"
+                        th:text="|Lekcje ucznia: ${chosenStudent.getName()} ${chosenStudent.getSurname()}|">Lekcje
+                        ucznia: Szymon</h4>
+                </div>
+                <div class=" card table-responsive">
+                    <table class="table table-responsive-xl table-hover" th:if="${currentLessons.size()>0}">
+                        <thead>
+                        <th class="text-center">Nr lekcji</th>
+                        <th class="text-center">Rodzaj lekcji</th>
+                        <th class="text-center">Temat lekcji</th>
+                        <th class="text-center ">Data</th>
+                        <th class="text-center">Akcje lekcji</th>
+                        </thead>
+                        <tbody th:remove="all-but-first">
+                        <tr th:each="lesson:${currentLessons}">
+                            <td class="text-center" th:text="${currentLessons.indexOf(lesson)+1}">1</td>
+                            <td th:text="${lesson.getSubject()}">Matematyka</td>
+                            <td class="text-center" th:text="${lesson.getLessonTopic()}">Figury geometryczne</td>
+                            <td class="text-center"
+                                th:text="${#temporals.format(lesson.getLessonDate(),'dd-MM-yyyy HH:mm')}">1/8/20
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <button href="#" class="btn text-center mr-2 btn-primary " data-toggle="modal"
+                                        data-target="#details" th:attr="data-target='#details'+${lesson.getId() }">
+                                    <i class="fa fa-bars"></i></button>
+                                <button class="btn btn-warning mr-2" data-toggle="modal"
+                                        data-target="#editLesson"
+                                        th:attr="data-target='#editLesson'+${lesson.getId() }">
+                                    <i class="fa fa-history"></i></button>
+                                <button class="btn btn-danger" data-toggle="modal"
+                                        data-target="#deleteLesson"
+                                        th:attr="data-target='#deleteLesson'+${lesson.getId()}">
+                                    <i class="fa fa-trash"></i></button>
+                            </td>
+                            <div class="modal fade " id="deleteLesson" th:id="deleteLesson+${lesson.getId()}">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content ">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title  text-center">Czy na pewno chcesz usunąć tę
+                                                lekcję?</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6 th:text="|Rodzaj lekcji: ${lesson.getSubject()}|"></h6>
+                                            <h6 th:text="|Tytuł lekcji: ${lesson.getLessonTopic()}|"></h6>
+                                            <h6 th:text="|Data lekcji: ${#temporals.format(lesson.getLessonDate(),'dd-MM-yyyy HH:mm')}|"></h6>
+                                            <h6 th:text="|Zadanie domowe: ${lesson.getHomework()}|"></h6>
+                                            <br>
+                                            <p th:text="|Szczegóły lekcji: ${lesson.getLessonComment()}|"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form role="form" action="#" th:action="@{/delete-lesson}" method="post">
+                                                <input type="hidden" name="lessonId" th:value="${lesson.getId()}">
+                                                <input type="hidden" name="studentId"
+                                                       th:value="${chosenStudent.getId()}">
+                                                <input type="submit" class="btn btn-block btn-danger" value="Usuń"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade " id="editLesson" th:id="editLesson+${lesson.getId()}">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content ">
+                                        <div class="modal-body">
+                                            <div class="row ">
+                                                <div class="col-lg-12 mx-auto">
+                                                    <div class="card mt-2 mx-auto p-4 bg-light">
+                                                        <div class="card-body bg-light">
+                                                            <div class="container">
+                                                                <form id="edit-lesson-form" role="form" action="#"
+                                                                      th:action="@{/edit-lesson}" method="post">
+                                                                    <div class="">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="subject">Wybierz
+                                                                                        przedmiot lekcji</label>
+                                                                                    <select id="edit-subject"
+                                                                                            name="chosenLesson"
+                                                                                            class="form-control"
+                                                                                            required="required"
+                                                                                            data-error="Wybierz przedmiot">
+                                                                                        <option>Matematyka</option>
+                                                                                        <option>Fizyka</option>
+                                                                                        <option>Angielski</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="lesson-topic">Opisz
+                                                                                        tematykę lekcji</label>
+                                                                                    <input id="edit-lesson-topic"
+                                                                                           type="text"
+                                                                                           name="lessonSection"
+                                                                                           class="form-control"
+                                                                                           placeholder=" np. Figury geometryczne"
+                                                                                           th:value="${lesson.getLessonTopic()}"
+                                                                                           required="required"
+                                                                                           data-error="Brak opisu">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="homework">Wprowadź
+                                                                                        zadanie domowe</label>
+                                                                                    <input id="edit-homework"
+                                                                                           type="text" name="homework"
+                                                                                           class="form-control"
+                                                                                           placeholder=" np. podręcznik str. 45 - zadanie 7 "
+                                                                                           th:value="${lesson.getHomework()}"
+                                                                                           required="required"
+                                                                                           data-error="Brak opisu">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="form_message">Komentarz
+                                                                                        do lekcji</label>
+                                                                                    <textarea id="edit-form_message"
+                                                                                              name="lessonComment"
+                                                                                              class="form-control"
+                                                                                              placeholder="Zwrócić szczególną uwagę na czasy z rodziny perfect "
+                                                                                              rows="4"
+                                                                                              required="required"
+                                                                                              th:value="${lesson.getLessonComment()}"
+                                                                                              data-error="Please, leave us a message."></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <input type="hidden" name="studentId"
+                                                                                       th:value="${chosenStudent.getId()}">
+                                                                                <input type="hidden" name="lessonId"
+                                                                                       th:value="${lesson.getId()}">
+                                                                                <input type="submit"
+                                                                                       class="btn btn-block btn-success btn-send pt-2 btn-block "
+                                                                                       value="Zapisz lekcję">
+                                                                            </div>
+                                                                            <div class="col-md-12 mt-2">
+                                                                                <input type="button"
+                                                                                       class="btn btn-block btn-danger"
+                                                                                       data-dismiss="modal"
+                                                                                       value="Anuluj">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade " id="details" th:id="details+${lesson.getId()}">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content ">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center">Szczegóły lekcji</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p th:text="${lesson.getLessonComment()}"></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-block btn-primary"
+                                                    data-dismiss="modal">Zamknij
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Fizyka</td>
+                            <td>Dynamika ciał</td>
+                            <td>1/8/20</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Angielski</td>
+                            <td>Present perfect, zaimki, słownictwo</td>
+                            <td>1/8/20</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Matematyka</td>
+                            <td>Procenty</td>
+                            <td>16/2/21</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Fizyka</td>
+                            <td>Optyka</td>
+                            <td>14/3/21</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td>Angielski</td>
+                            <td>Future perfect</td>
+                            <td>1/4/21</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Matematyka</td>
+                            <td>Figury geometryczne</td>
+                            <td>1/8/20</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Fizyka</td>
+                            <td>Dynamika ciał</td>
+                            <td>1/8/20</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Angielski</td>
+                            <td>Present perfect, zaimki, słownictwo</td>
+                            <td>1/8/20</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Matematyka</td>
+                            <td>Procenty</td>
+                            <td>16/2/21</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Fizyka</td>
+                            <td>Optyka</td>
+                            <td>14/3/21</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td>Angielski</td>
+                            <td>Future perfect</td>
+                            <td>1/4/21</td>
+                            <td><a href="#" class="btn text-center lesson-button btn-primary ">Zobacz</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:if="${currentLessons.size()==0}">
+                    <div class="bg-white shadow card mt-4 border-top p-3">
+                        <span class="amount-lessons text-center mt-4 mb-4 display-4 "><br>Brak lekcji bieżących<br><br>W celu dodania lekcji użyj formularza w bocznym panelu<br><br></span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white shadow card mt-4 border-top p-3">
+                <span class="text-center display-5 " th:text="|Liczba lekcji: ${currentLessons.size()}|">Liczba lekcji: 6</span>
+            </div>
+        </div>
+        <div class="col-md-4 border-left">
+            <div class="p-3 card first-box shadow-lg bg-white">
+                <div class="profile">
+                    <img src="../static/img/avatars/maleAvatar3.png" th:src="@{${chosenStudent.getAvatarUrl()}}"
+                         class="rounded img-fluid profile-picture  " width="220">
+                </div>
+                <span class="mt-3 ml-1 text-center display-4 justify-content-center align-items-center balance"
+                      th:text="${chosenStudent.getName()}">Szymon</span>
+                <button type="button" class="btn mt-2 btn-block btn-success" data-toggle="modal"
+                        data-target="#profileModal">Zobacz profil
+                </button>
+                <span>
+                    <div class="modal fade " id="profileModal">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content ">
+
+                            <!-- Student profile -->
+                            <div class="modal-body">
+                                <div class="row ">
+                                    <div class="col-lg-12 mx-auto">
+                                        <div class="card mt-2 mx-auto p-4 bg-light">
+                                            <div class="card-body bg-light">
+                                                <div class="container">
+                                                     <div class="row justify-content-center">
+                                                        <div class="col-md-4 border-right">
+                                                            <div class="p-3 card first-box shadow-lg bg-white">
+                                                                <div class="profile img-fluid">
+                                                                    <img src="../static/img/avatars/maleAvatar3.png"
+                                                                         th:src="@{${chosenStudent.getAvatarUrl()}}"
+                                                                         class="rounded img-fluid profile-picture "
+                                                                         width="220">
+                                                                </div>
+                                                                <span class="mt-3 ml-1 text-center display-4 justify-content-center align-items-center balance"
+                                                                      th:text="${chosenStudent.getName()}">Szymon</span>
+                                                                <span><a href="#"
+                                                                         th:href="@{/edit-student(studentId=${chosenStudent.getId()})}"
+                                                                         class="btn mt-2 btn-block btn-warning ">Edytuj profil</a></span>
+                                                                <span><a href="#"
+                                                                         class="btn mt-2 btn-block btn-success "
+                                                                         data-dismiss="modal">Wróć do panelu dydaktycznego</a></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="card mb-3">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0 mr-4">Imię</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-5 text-secondary"
+                                                                             th:text="${chosenStudent.getName()}">
+                                                                            Szymon
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0">Nazwisko</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-5 text-secondary"
+                                                                             th:text="${chosenStudent.getSurname()}">
+                                                                            Gad
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0">Email</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-5 text-secondary"
+                                                                             th:text="${chosenStudent.getEmail()}">
+                                                                            szymongad@op.pl
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0">Telefon ucznia</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-5 text-secondary"
+                                                                             th:text="${chosenStudent.getPhone()}">
+                                                                           589 458 687
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0">Rodzic</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-5 text-secondary"
+                                                                             th:text="${chosenStudent.getParent()}">
+                                                                            Anna Gad
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0">Telefon rodzica</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-5 text-secondary"
+                                                                             th:text="${chosenStudent.getParentNumber()}">
+                                                                            749 852 365
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-7">
+                                                                            <h6 class="mb-0">Dodatkowe informacje</h6>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="col-sm-5  text-secondary"
+                                                                             th:text="${chosenStudent.getAdditionalInfo()}">
+                                                                            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </span>
+            </div>
+            <div class="border-top shadow-lg mt-2 card border-bottom p-3 bg-white transaction">
+                <button type="button" class="btn mt-2 btn-block btn-primary" data-toggle="modal"
+                        data-target="#lessonModal">Dodaj nową lekcję
+                </button>
+                <span>
+                    <div class="modal fade " id="lessonModal">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content ">
+                            <!-- Add lesson modal -->
+                            <div class="modal-body">
+                                <div class="row ">
+                                    <div class="col-lg-12 mx-auto">
+                                        <div class="card mt-2 mx-auto p-4 bg-light">
+                                            <div class="card-body bg-light">
+                                                <div class="container">
+                                                    <form id="lesson-form" role="form" action="#"
+                                                          th:action="@{/add-lesson}" method="post">
+                                                        <div class="">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">Wybierz przedmiot lekcji</label>
+                                                                        <select id="subject" name="chosenLesson"
+                                                                                class="form-control" required="required"
+                                                                                data-error="Wybierz przedmiot">
+                                                                            <option>Matematyka</option>
+                                                                            <option>Fizyka</option>
+                                                                            <option>Angielski</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="lesson-topic">Opisz tematykę lekcji</label>
+                                                                        <input id="lesson-topic" type="text"
+                                                                               name="lessonSection" class="form-control"
+                                                                               placeholder=" np. Figury geometryczne"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="homework">Wprowadź zadanie domowe</label>
+                                                                        <input id="homework" type="text" name="homework"
+                                                                               class="form-control"
+                                                                               placeholder=" np. podręcznik str. 45 - zadanie 7 "
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="form_message">Komentarz do lekcji</label>
+                                                                        <textarea id="form_message" name="lessonComment"
+                                                                                  class="form-control"
+                                                                                  placeholder="Zwrócić szczególną uwagę na czasy z rodziny perfect "
+                                                                                  rows="4" required="required"
+                                                                                  data-error="Please, leave us a message."></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <input type="hidden" name="studentId"
+                                                                           th:value="${chosenStudent.getId()}">
+                                                                    <input type="submit"
+                                                                           class="btn btn-block btn-success btn-send pt-2 btn-block "
+                                                                           value="Dodaj lekcję">
+                                                                </div>
+                                                                <div class="col-md-12 mt-2">
+                                                                    <input type="button"
+                                                                           class="btn btn-block btn-danger"
+                                                                           data-dismiss="modal" value="Anuluj">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </span>
+                <span class=" archive"><a href="#" class="btn mt-2 btn-block btn-secondary " data-toggle="modal"
+                                          data-target="#archive">Archiwizuj ostatnie lekcje</a></span>
+            </div>
+            <span>
+                        <div class="modal fade " id="archive">
+                        <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content ">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Archiwizacja bieżących lekcji</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                         <span aria-hidden="true">&times;</span>
+                                         </button>
+                                    </div>
+                                        <div class="modal-body">
+                                        <p>Czy na pewno chcesz zarchiwizować bieżące lekcje?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form role="form" action="#" th:action="@{/archive-lesson}" method="post">
+                                            <input type="hidden" name="positionToArchive"
+                                                   th:value="${currentLessons.size()}">
+                                            <input type="hidden" name="studentId" th:value="${chosenStudent.getId()}">
+                                            <input type="submit" class="btn btn-success" value="Archiwizuj">
+
+                                        </form>
+                                        <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Anuluj</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+            <div class="p-3 d-flex last-lesson shadow-lg mt-2 card py-4 bg-white">
+                <div th:if="${currentLessons.size()>0}">
+                    <div class="d-flex  justify-content-between">
+                    <span class="last-lesson ml-5">
+                        <div class="btn btn-block d-flex justify-content-center btn-secondary ml-1 disabled text-center"
+                             role="alert"
+                             th:text="|Ostatnia lekcja: ${currentLessons.get(currentLessons.size()-1).getSubject()} |">
+                         Ostatnia lekcja: Matematyka
+                        </div>
+                    </span>
+                    </div>
+                    <div class=" mt-2">
+                        <div class="d-felx"><h6>Uwagi: </h6>
+                            <div class="d-flex justify-content-between">
+                            <span class="card-block d-flex lesson-dessc ">
+                                <p th:text="${currentLessons.get(currentLessons.size()-1).getLessonComment()}"> Powtórzyć procenty, zamianę liczb całkowitych na ułamki. Przeliczanie procentów</p>
+                            </span>
+                            </div>
+                        </div>
+                        <div class="home-work mt-2"><h6>Zadanie domowe: </h6>
+                            <div class="d-flex  justify-content-between">
+                            <span class="card-block lesson-dessc ">
+                                <p th:text="${currentLessons.get(currentLessons.size()-1).getHomework()}"> Podręcznik str 146 zadanie 1,2 i 7,8</p>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${currentLessons.size()==0}">
+                    <span class=" text-center display-5 ">Brak informacji na temat najnowszych lekcji. Zasil profil danymi, aby śledzić najnowsze informacje na temat pracy ucznia</span>
+                </div>
+            </div>
+            <div class="border-top shadow-lg mt-3 card border-bottom p-3 bg-white transaction">
+                <button type="button" class="btn mt-2 btn-block btn-danger" data-toggle="modal"
+                        data-target="#deleteProfile">
+                    Usuń profil
+                </button>
+                <div class="modal fade" id="deleteProfile" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Usuwanie profilu ucznia</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Czy jesteś pewien, że chcesz usunąć profil? Operacja jest pernamentna</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form role="form" action="#" th:action="@{/delete-student}" method="post">
+                                    <input type="hidden" name="studentId" th:value="${chosenStudent.getId()}">
+                                    <input type="submit" class="btn btn-danger" value="Usuń">
+                                </form>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Anuluj</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="jumbotron footer text-center" style="margin-bottom:0">
+    <p></p>
+</div>
+</body>
+</html>

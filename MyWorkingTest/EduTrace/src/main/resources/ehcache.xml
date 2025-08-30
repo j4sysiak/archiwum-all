@@ -1,0 +1,20 @@
+<config
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd">
+
+    <cache-template name="weather">
+        <expiry>
+            <ttl unit="hours">2</ttl>
+        </expiry>
+        <heap unit="entries">500</heap>
+    </cache-template>
+    <cache-template name="quotes">
+        <expiry>
+            <ttl unit="minutes">45</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+    </cache-template>
+    <cache alias="weather" uses-template="weather"></cache>
+    <cache alias="quote" uses-template="quotes"></cache>
+</config>

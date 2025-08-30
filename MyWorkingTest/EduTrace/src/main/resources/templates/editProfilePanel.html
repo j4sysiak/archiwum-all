@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>EduTrace - Edit Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="../static/css/studentPanel.css" th:href="@{/css/studentPanel.css}" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $("#editionFailed").modal('show');
+        });
+    </script>
+</head>
+<body>
+<div th:if="${editionFailed}">
+    <div id="editionFailed" class="modal fade addError">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold">Nie udało się zmodyfikować danych - nieudana walidacja
+                        danych:</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body ml-2">
+                    <ul th:each="error:${errors}">
+                        <li class="font-italic" th:text="${error}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jumbotron home-jumbo text-center text-white" style="margin-bottom:0">
+    <a href="#" th:href="@{/main-panel}"><h1 class="display-2 text-white">EduTrace</h1></a>
+    <h5>Trace of the progress</h5>
+</div>
+<nav class="navbar navbar-expand-sm bg-dark  sticky-top navbar-dark">
+    <div class="card">
+        <div class="row ">
+            <div class="col  align-self-center">
+                <div class="col">
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" width="45"
+                         th:src="${weather.provideIconAdress()}">
+                </div>
+            </div>
+            <div class=" align-self-center">
+                <div class="">
+                    <h8 th:text="${weather.getDescription()}">test</h8>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ml-1">
+                    <h5 class="text-info" th:text="|${weather.getTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ">
+                    <h5 class="text" th:text="|${weather.getFeelsLikeTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ">
+                    <div><img th:src="@{/img/sunrisee.png}" src="../static/img/sunrisee.png" width="40"></div>
+                    <h8 th:text="${weather.getSunrise()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="first-col ">
+                    <div class="ml-1"><img th:src="@{/img/sunsett.png}" src="../static/img/sunsett.png" width="40">
+                    </div>
+                    <h8 th:text="${weather.getSunset()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="first-col ">
+                    <img th:src="@{/img/wind-solid.svg}" src="../static/img/wind-solid.svg" width="40">
+                    <h8 th:text="|${weather.getWindSpeed()} m/s|">Sunny</h8>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end " id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item ml-4 mr-4">
+                <div class="text-white font-italic" th:text="${quote.getQuote()}"></div>
+                <div class="text-white text-right " th:text="${quote.getAuthor()}"></div>
+            </li>
+            <li class="nav-item display-5 mr-5">
+                <a class="nav-link" href="#" th:href="@{/archive}">Archiwum</a>
+            </li>
+            <li class="nav-item display-5">
+                <a class="nav-link mr-5" href="#" th:href="@{/log-out}">Wyloguj</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4 mb-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-7 ">
+            <div class="p-3 card first-box shadow-lg bg-white border-right">
+                <div class="profile img-fluid">
+                    <img src="../static/img/avatars/maleAvatar3.png" th:src="@{${chosenStudent.getAvatarUrl()}}"
+                         class="rounded img-fluid profile-picture " width="220">
+                </div>
+                <span class="mt-3 ml-1 text-center display-4 justify-content-center align-items-center balance"
+                      th:text="|${chosenStudent.getName()} ${chosenStudent.getSurname()}|">Szymon</span>
+                <hr>
+                <span><a href="#" class="btn mt-2 btn-block btn-warning" data-toggle="modal" data-target="#avatartEdit">Edytuj avatar</a></span>
+                <span><a href="#" class="btn mt-3 btn-block btn-warning" data-toggle="modal"
+                         data-target="#basicDataEdit">Edytuj dane podstawowe</a></span>
+                <span><a href="#" class="btn mt-3 btn-block btn-warning" data-toggle="modal"
+                         data-target="#subjectDatatEdit">Edytuj dane przedmiotowe</a></span>
+                <hr>
+                <span><a href="#" th:href="|@{/student-panel?studentId=}${chosenStudent.getId()}|"
+                         class="btn mt-2 btn-block btn-success">Panel dydaktyczny</a></span>
+            </div>
+        </div>
+
+        <div class="modal fade" id="avatartEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edycja avataru</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/edit-student/avatar}" method="post">
+                            <div class="row p-2 mb-2">
+                                <div class="col border-right">
+                                    <img src="../static/img/avatars/maleAvatar1.png"
+                                         th:src="@{/img/avatars/maleAvatar1.png}" class="rounded img-fluid" width="155">
+                                    <div>
+                                        <input class="form-check-input ml-0" type="radio" name="avatar"
+                                               value="/img/avatars/maleAvatar1.png" required>
+                                    </div>
+                                </div>
+                                <div class="col border-right">
+                                    <img src="../static/img/avatars/maleAvatar2.png"
+                                         th:src="@{/img/avatars/maleAvatar2.png}" class="rounded  img-fluid"
+                                         width="155">
+                                    <div>
+                                        <input class="form-check-input ml-0" type="radio" name="avatar"
+                                               value="/img/avatars/maleAvatar2.png">
+                                    </div>
+                                </div>
+                                <div class="col border-right">
+                                    <img src="../static/img/avatars/maleAvatar3.png"
+                                         th:src="@{/img/avatars/maleAvatar3.png}" class="rounded  img-fluid"
+                                         width="155">
+                                    <div>
+                                        <input class="form-check-input ml-0" type="radio" name="avatar"
+                                               value="/img/avatars/maleAvatar3.png">
+                                    </div>
+                                </div>
+                                <div class="col border-right">
+                                    <img src="../static/img/avatars/femaleAvatar1.png"
+                                         th:src="@{/img/avatars/femaleAvatar1.png}" class="rounded  img-fluid"
+                                         width="155">
+                                    <div>
+                                        <input class="form-check-input ml-0" type="radio" name="avatar"
+                                               value="/img/avatars/femaleAvatar1.png">
+                                    </div>
+                                </div>
+                                <div class="col ">
+                                    <img src="../static/img/avatars/femaleAvatar2.png"
+                                         th:src="@{/img/avatars/femaleAvatar2.png}" class="rounded img-fluid"
+                                         width="155">
+                                    <div>
+                                        <input class="form-check-input ml-0" type="radio" name="avatar"
+                                               value="/img/avatars/femaleAvatar2.png">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <input type="submit"
+                                       class="btn offset-2 col-8  d-flex justify-content-center align-items-center btn-block btn-success"
+                                       value="Zapisz"/>
+                                <input type="hidden" name="studentId" th:value="${chosenStudent.getId()}">
+                            </div>
+                        </form>
+                        <div class="row mt-2">
+                            <button type="button"
+                                    class="btn offset-2 col-8  d-flex justify-content-center align-items-center btn-block btn-secondary"
+                                    data-dismiss="modal">Anuluj
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="basicDataEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edycja danych podstawowych</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/edit-student/basic-info}" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name">Imię ucznia</label>
+                                            <input id="name" type="text" th:value="${chosenStudent.getName()}"
+                                                   name="name" class="form-control" placeholder=" Adam"
+                                                   required="required" data-error="Brak opisu"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="surname">Nazwisko ucznia</label>
+                                            <input id="surname" type="text" th:value="${chosenStudent.getSurname()}"
+                                                   name="surname" class="form-control" placeholder="Wieżbicki"
+                                                   required="required" data-error="Brak opisu">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="phone">Telefon</label>
+                                            <input id="phone" type="number" th:value="${chosenStudent.getPhone()}"
+                                                   name="phone" size="9" class="form-control" placeholder="111-555-777"
+                                                   required="required" data-error="Brak opisu">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="mail">E-mail</label>
+                                            <input id="mail" type="email" th:value="${chosenStudent.getEmail()}"
+                                                   name="mail" class="form-control" placeholder="adamwieżbicki@op.pl"
+                                                   required="required" data-error="Brak opisu">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="parent">Opiekun</label>
+                                            <input id="parent" type="text" th:value="${chosenStudent.getParent()}"
+                                                   name="parent" class="form-control" placeholder="Anna Wieżbicka"
+                                                   required="required" data-error="Brak opisu">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="parentPhone">Telefon opiekuna</label>
+                                            <input id="parentPhone" type="number"
+                                                   th:value="${chosenStudent.getParentNumber()}" size="9"
+                                                   name="parentPhone" class="form-control" placeholder="555 777 888"
+                                                   required="required" data-error="Brak opisu">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <input type="submit"
+                                       class="btn offset-2 col-8  d-flex justify-content-center align-items-center btn-block btn-success"
+                                       value="Zapisz"/>
+                                <input type="hidden" name="studentId" th:value="${chosenStudent.getId()}">
+                            </div>
+                        </form>
+                        <div class="ftr">
+                            <div class="row mt-2 mb-4">
+                                <button type="button"
+                                        class="btn offset-2 col-8  d-flex justify-content-center align-items-center btn-block btn-secondary"
+                                        data-dismiss="modal">Anuluj
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="subjectDatatEdit" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Edycja danych przedmiotowych</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/edit-student/subject-info}" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="subject">Klasa</label>
+                                        <select id="subject" name="grade" class="form-control" required="required"
+                                                data-error="Wybierz przedmiot">
+                                            <option selected disabled>Wybierz klasę</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Zaznacz interesujące przedmioty</p>
+                            <div class="row text-center">
+
+                                <div class="col-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="math" name="subject"
+                                               value="Matematyka">
+                                        <label class="form-check-label" for="math">Matematyka </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="physics" name="subject"
+                                               value="Fizyka">
+                                        <label class="form-check-label" for="physics">Fizyka </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="eng" name="subject"
+                                               value="Angielski">
+                                        <label class="form-check-label" for="eng">Angielski</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>Wybierz dni zajęć</p>
+                            <div class="row text-center">
+                                <div class="col-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="day" id="mon"
+                                               value="Poniedziałek">
+                                        <label class="form-check-label" for="mon">Poniedziałek </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="tue" name="day"
+                                               value="Wtorek">
+                                        <label class="form-check-label" for="tue">Wtorek </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="wed" name="day"
+                                               value="Środa">
+                                        <label class="form-check-label" for="wed">Środa</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="thur" name="day"
+                                               value="Czwartek">
+                                        <label class="form-check-label" for="thur">Czwartek</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="frid" name="day"
+                                               value="Piątek">
+                                        <label class="form-check-label" for="frid">Piątek</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="extraInfo">Informacje dodatkowe</label>
+                                        <textarea id="extraInfo" name="extraInfo"
+                                                  th:value="${chosenStudent.getAdditionalInfo()}" class="form-control"
+                                                  placeholder="Uwielbia kursy językowe" rows="4" required="required"
+                                                  data-error="Please, leave us a message."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit"
+                                   class="btn offset-2 col-8  d-flex justify-content-center align-items-center btn-block btn-success"
+                                   value="Zapisz"/>
+                            <input type="hidden" name="studentId" th:value="${chosenStudent.getId()}">
+                        </form>
+                    </div>
+                    <div class="ftr">
+                        <div class="row mt-2 mb-4">
+                            <button type="button"
+                                    class="btn offset-2 col-8  d-flex justify-content-center align-items-center btn-block btn-secondary"
+                                    data-dismiss="modal">Anuluj
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="jumbotron footer text-center" style="margin-bottom:0">
+    <p></p>
+</div>
+</body>
+</html>

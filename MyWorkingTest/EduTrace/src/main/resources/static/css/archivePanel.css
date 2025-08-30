@@ -1,0 +1,30 @@
+
+.home-jumbo {
+    background: url('../img/dark.jpg') center;
+}
+
+.navbar-brand {
+    margin-left: 200px;
+    font-weight: 40;
+
+}
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+}
+
+.footer {
+    background-color: #11426c;
+}
+
+.profile-picture {
+    margin-left: 200px
+}
+
+
+.avatar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}

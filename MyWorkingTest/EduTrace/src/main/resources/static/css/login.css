@@ -1,0 +1,32 @@
+.home-jumbo {
+    background: url('../img/clock.png') center;
+    height: 250px
+}
+
+.logButoon {
+    bottom: -15px;
+}
+
+.jumbo-text {
+    position: center;
+}
+
+.shadow-lg {
+    margin-top: 0px;
+}
+
+.container {
+    position: relative;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.display-7 {
+    position: relative;
+    right: -11px;
+}

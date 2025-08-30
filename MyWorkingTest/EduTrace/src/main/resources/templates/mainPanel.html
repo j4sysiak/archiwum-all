@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>EduTrace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="../static/css/mainPanel.css" th:href="@{/css/mainPanel.css}" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+            $("#additionFailed").modal('show');
+        });
+    </script>
+</head>
+<body>
+
+<div class="jumbotron home-jumbo text-center text-white" style="margin-bottom:0">
+    <a href="#" th:href="@{/main-panel}"><h1 class="display-2 text-white">EduTrace</h1></a>
+    <h5>Trace of the progress</h5>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark  sticky-top navbar-dark">
+    <div class="card">
+        <div class="row ">
+            <div class="col d-flex align-self-center">
+                <div class="col">
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" width="45"
+                         th:src="${weather.provideIconAdress()}">
+                </div>
+            </div>
+            <div class="d-flex align-self-center">
+                <div class="">
+                    <h8 th:text="${weather.getDescription()}">test</h8>
+                </div>
+            </div>
+            <div class="col  d-flex align-self-center">
+                <div class="first-col ml-1">
+                    <h5 class="text-info" th:text="|${weather.getTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col d-flex  align-self-center">
+                <div class="first-col ">
+                    <h5 class="text" th:text="|${weather.getFeelsLikeTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col d-flex  align-self-center">
+                <div class="first-col ">
+                    <div><img class="img-fluid" th:src="@{/img/sunrisee.png}" src="../static/img/sunrisee.png"
+                              width="40"></div>
+                    <h8 th:text="${weather.getSunrise()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col d-flex align-self-center">
+                <div class="first-col ">
+                    <div class="ml-1"><img class="img-fluid" th:src="@{/img/sunsett.png}"
+                                           src="../static/img/sunsett.png" width="40"></div>
+                    <h8 th:text="${weather.getSunset()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col d-flex align-self-center">
+                <div class="first-col ">
+                    <img class="img-fluid" th:src="@{/img/wind-solid.svg}" src="../static/img/wind-solid.svg"
+                         width="40">
+                    <h8 th:text="|${weather.getWindSpeed()} m/s|">Sunny</h8>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end " id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item ml-4 mr-4">
+                <div class="text-white font-italic" th:text="${quote.getQuote()}"></div>
+                <div class="text-white text-right " th:text="${quote.getAuthor()}"></div>
+            </li>
+            <li class="nav-item display-5 mr-5">
+                <a class="nav-link" href="#" th:href="@{/archive}">Archiwum</a>
+            </li>
+            <li class="nav-item display-5">
+                <a class="nav-link mr-5" href="#" th:href="@{/log-out}">Wyloguj</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div th:if="${additionFailed}">
+        <div id="additionFailed" class="modal fade addError">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-bold">Nie udało się dodać ucznia - nieudana walidacja
+                            danych:</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body ml-2">
+                        <ul th:each="error:${errors}">
+                            <li class="font-italic" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 g-4 d-flex justify-content-center">
+
+        <div class="shadow card p-3 mb-4 mt-2 ml-3 mr-4 bg-white rounded" th:each="student:${students}">
+            <div class="d-flex align-items-center">
+                <div class="image"><img src="../static/img/avatars/maleAvatar1.png" th:src="${student.getAvatarUrl()}"
+                                        class="rounded img-fluid" width="155"></div>
+                <div class="ml-3 w-100">
+                    <h4 class="mb-0 mt-0 font-weight-bold" th:text="|${student.getName()} ${student.getSurname()}|">
+                        Miłosz</h4>
+                    <div class=" mt-2 p-1 d-flex justify-content-between rounded roundCard text-white stats">
+                        <div class="d-flex flex-column">
+                            <span class="lessons">Lekcje</span>
+                            <span class="col1"
+                                  th:text="${student.getTotalLessonAmount() - student.getLastArchivedPosition()}">38</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class=" sub-col">Przedmioty</span>
+                            <div class="subjects" th:each="subject:${student.getSubjects()}">
+                                <span class="col2 " th:text="${subject}">Angielski <br> Matematyka</span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="day-col">Dni zajęć</span>
+                            <div class="days" th:each="day:${student.getDays()}">
+                                <span class="col3" th:text="${day}">Wtorek <br> Czwartek</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button mt-2  flex-row align-items-center">
+                        <form action="#" th:action="@{/student-panel}" method="get">
+                            <input type="hidden" name="studentId" th:value="${student.getId()}">
+                            <input type="submit" class=" btn-sm btn-block font-weight-bold btn-primary text-white"
+                                   value="Panel dydaktyczny">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="row d-flex mr-5 mb-3 justify-content-end">
+            <div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLongTitle">Dodaj nowego ucznia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row ">
+                                <div class="col-lg-12 mx-auto">
+                                    <div class="card mt-2 mx-auto p-4 bg-light">
+                                        <div class="card-body bg-light">
+                                            <div class="container">
+                                                <form id="lesson-form" role="form" action="#"
+                                                      th:action="@{/add-student}" th:object="${studentBasicInfo}"
+                                                      method="post">
+                                                    <h6>Wybierz avatara ucznia: </h6>
+                                                    <div class="row ">
+                                                        <div class="avatars d-flex  ml-4  mb-3">
+                                                            <div class="form-check radio_check mb-3">
+                                                                <div class="row mb-2">
+                                                                    <div class="col border-right">
+                                                                        <img src="../static/img/avatars/maleAvatar1.png"
+                                                                             th:src="@{/img/avatars/maleAvatar1.png}"
+                                                                             class="rounded img-fluid" width="155">
+                                                                        <div>
+                                                                            <input class="form-check-input ml-0"
+                                                                                   type="radio" th:field="*{avatar}"
+                                                                                   value="/img/avatars/maleAvatar1.png"
+                                                                                   required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col border-right">
+                                                                        <img src="../static/img/avatars/maleAvatar2.png"
+                                                                             th:src="@{/img/avatars/maleAvatar2.png}"
+                                                                             class="rounded  img-fluid" width="155">
+                                                                        <div>
+                                                                            <input class="form-check-input ml-0"
+                                                                                   type="radio" th:field="*{avatar}"
+                                                                                   value="/img/avatars/maleAvatar2.png">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col border-right">
+                                                                        <img src="../static/img/avatars/maleAvatar3.png"
+                                                                             th:src="@{/img/avatars/maleAvatar3.png}"
+                                                                             class="rounded  img-fluid" width="155">
+                                                                        <div>
+                                                                            <input class="form-check-input ml-0"
+                                                                                   type="radio" th:field="*{avatar}"
+                                                                                   value="/img/avatars/maleAvatar3.png">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col border-right">
+                                                                        <img src="../static/img/avatars/femaleAvatar1.png"
+                                                                             th:src="@{/img/avatars/femaleAvatar1.png}"
+                                                                             class="rounded  img-fluid" width="155">
+                                                                        <div>
+                                                                            <input class="form-check-input ml-0"
+                                                                                   type="radio" th:field="*{avatar}"
+                                                                                   value="/img/avatars/femaleAvatar1.png">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col ">
+                                                                        <img src="../static/img/avatars/femaleAvatar2.png"
+                                                                             th:src="@{/img/avatars/femaleAvatar2.png}"
+                                                                             class="rounded img-fluid" width="155">
+                                                                        <div>
+                                                                            <input class="form-check-input ml-0"
+                                                                                   type="radio" th:field="*{avatar}"
+                                                                                   value="/img/avatars/femaleAvatar2.png">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="name">Imię ucznia</label>
+                                                                        <input id="name" type="text" th:field="*{name}"
+                                                                               class="form-control" placeholder=" Adam"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="surname">Nazwisko ucznia</label>
+                                                                        <input id="surname" type="text"
+                                                                               th:field="*{surname}"
+                                                                               class="form-control"
+                                                                               placeholder="Wieżbicki"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="phone">Telefon</label>
+                                                                        <input id="phone" type="number"
+                                                                               th:field="*{phone}" size="9"
+                                                                               class="form-control"
+                                                                               placeholder="111555777"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="mail">E-mail</label>
+                                                                        <input id="mail" type="text" th:field="*{mail}"
+                                                                               class="form-control"
+                                                                               placeholder="adamwieżbicki@op.pl"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="parent">Opiekun</label>
+                                                                        <input id="parent" type="text"
+                                                                               th:fiel="*{parent}" class="form-control"
+                                                                               placeholder="Anna Wieżbicka"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="parentPhone">Telefon
+                                                                            opiekuna</label>
+                                                                        <input id="parentPhone" type="number"
+                                                                               th:field="*{parentPhone}" size="9"
+                                                                               class="form-control"
+                                                                               placeholder="555777888"
+                                                                               required="required"
+                                                                               data-error="Brak opisu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="subject">Klasa</label>
+                                                                    <select id="subject" th:field="*{grade}"
+                                                                            class="form-control" required="required"
+                                                                            data-error="Wybierz przedmiot">
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p>Zaznacz interesujące przedmioty</p>
+                                                        <div class="row text-center">
+
+                                                            <div class="col-12">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="math" th:field="*{subject}"
+                                                                           value="Matematyka">
+                                                                    <label class="form-check-label" for="math">Matematyka </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="physics" th:field="*{subject}"
+                                                                           value="Fizyka">
+                                                                    <label class="form-check-label"
+                                                                           for="physics">Fizyka </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="eng" th:field="*{subject}"
+                                                                           value="Angielski">
+                                                                    <label class="form-check-label"
+                                                                           for="eng">Angielski</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p>Wybierz dni zajęć</p>
+                                                        <div class="row text-center">
+                                                            <div class="col-12">
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           th:field="*{day}" id="mon"
+                                                                           value="Poniedziałek">
+                                                                    <label class="form-check-label" for="mon">Poniedziałek </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="tue" th:field="*{day}" value="Wtorek">
+                                                                    <label class="form-check-label"
+                                                                           for="tue">Wtorek </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="wed" th:field="*{day}" value="Środa">
+                                                                    <label class="form-check-label"
+                                                                           for="wed">Środa</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="thur" th:field="*{day}" value="Czwartek">
+                                                                    <label class="form-check-label"
+                                                                           for="thur">Czwartek</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="frid" th:field="*{day}" value="Piątek">
+                                                                    <label class="form-check-label"
+                                                                           for="frid">Piątek</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="extraInfo">Informacje dodatkowe</label>
+                                                                    <textarea id="extraInfo" th:field="*{extraInfo}"
+                                                                              class="form-control"
+                                                                              placeholder="Uwielbia kursy językowe"
+                                                                              rows="4" required="required"
+                                                                              data-error="Please, leave us a message."></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="submit"
+                                                                       class="btn btn-block btn-success btn-send pt-2 btn-block "
+                                                                       value="Dodaj ucznia">
+                                                            </div>
+                                                            <div class="col-md-12 mt-2">
+                                                                <input type="button" class="btn btn-block btn-danger"
+                                                                       data-dismiss="modal" value="Anuluj">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="d-flex mr-5 justify-content-end">
+    <a href="#">
+        <img class="img-fluid " data-toggle="modal" data-target="#addStudent" th:src="@{/img/user_plus.svg}"/>
+        <button class=" invisible btn-lg mr-5 justify-content-end user-add"><i
+                class="src=../static/img/user_plus.svg"></i></button>
+    </a>
+</div>
+
+<div class="jumbotron footer text-center" style="margin-bottom:0">
+    <p></p>
+</div>
+</body>
+</html>

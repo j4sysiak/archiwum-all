@@ -1,0 +1,22 @@
+.home-jumbo {
+    background: url('../img/dark.jpg') center;
+}
+
+.lesson-button {
+    width: auto;
+    height: 40px;
+    text-align: center;
+}
+
+.amount-lessons {
+    font-size: 45px;
+}
+
+.profile {
+    margin: auto;
+    alignment: center;
+}
+
+.footer {
+    background-color: #11426c;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <title>EduTrace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="../static/css/archivePanel.css" th:href="@{/css/archivePanel.css}" rel="stylesheet">
+
+</head>
+<body>
+<div class="jumbotron home-jumbo text-center text-white" style="margin-bottom:0">
+    <a href="#" th:href="@{/main-panel}"><h1 class="display-2 text-white">EduTrace</h1></a>
+    <h5>Trace of the progress</h5>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark  sticky-top navbar-dark">
+    <div class="card">
+        <div class="row ">
+            <div class="col  align-self-center">
+                <div class="col">
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" width="45"
+                         th:src="${weather.provideIconAdress()}">
+                </div>
+            </div>
+            <div class=" align-self-center">
+                <div class="">
+                    <h8 th:text="${weather.getDescription()}">test</h8>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ml-1">
+                    <h5 class="text-info" th:text="|${weather.getTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ">
+                    <h5 class="text" th:text="|${weather.getFeelsLikeTemperature()} C|">32</h5>
+                </div>
+            </div>
+            <div class="col  align-self-center">
+                <div class="first-col ">
+                    <div><img th:src="@{/img/sunrisee.png}" src="../static/img/sunrisee.png" width="40"></div>
+                    <h8 th:text="${weather.getSunrise()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="first-col ">
+                    <div class="ml-1"><img th:src="@{/img/sunsett.png}" src="../static/img/sunsett.png" width="40">
+                    </div>
+                    <h8 th:text="${weather.getSunset()}">Sunny</h8>
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="first-col ">
+                    <img th:src="@{/img/wind-solid.svg}" src="../static/img/wind-solid.svg" width="40">
+                    <h8 th:text="|${weather.getWindSpeed()} m/s|">Sunny</h8>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end " id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item ml-4 mr-4">
+                <div class="text-white font-italic" th:text="${quote.getQuote()}"></div>
+                <div class="text-white text-right " th:text="${quote.getAuthor()}"></div>
+            </li>
+            <li class="nav-item display-5 mr-5">
+                <a class="nav-link" href="#" th:href="@{/archive}">Archiwum</a>
+            </li>
+            <li class="nav-item display-5">
+                <a class="nav-link mr-5" href="#" th:href="@{/log-out}">Wyloguj</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <form action="#" th:action="@{/archive}" method="get">
+        <div class="col-8 d-flex justify-content-center offset-2">
+            <div class="input-group mt-4 ">
+                <input type="search" name="student" class="form-control rounded" placeholder="Podaj dane ucznia"
+                       aria-label="Search"
+                       aria-describedby="search-addon"/>
+                <button type="submit" class="btn btn-outline-primary">Wyszukaj ucznia</button>
+            </div>
+        </div>
+    </form>
+    <div th:if="${!archivedStudents.isEmpty()}">
+        <div class=" col-8 offset-2 card shadow mt-4 mb-4 g-4 d-flex justify-content-center"
+             th:each="student:${archivedStudents}">
+            <div class="d-flex mt-2 mb-2 mr-2 ml-2 align-items-center">
+                <div class="image"><img src="../static/img/avatars/maleAvatar1.png" th:src="${student.getAvatarUrl()}"
+                                        class="rounded img-fluid" width="155"></div>
+                <div class="ml-3 w-100">
+                    <h4 class="mb-0 mt-0 font-weight-bold text-center"
+                        th:text="|${student.getName()} ${student.getSurname()}|">Miłosz</h4>
+                    <h5 class="text-center mt-2"
+                        th:text="|Liczba zarchiwizowanych lekcji : ${student.getTotalLessonAmount()}|"></h5>
+                    <div class="button mt-4  flex-row  align-items-center">
+                        <form action="#" th:action="@{/archive}" method="get">
+                            <input type="hidden" name="studentId" th:value="${student.getId()}">
+                            <input type="submit"
+                                   class=" btn-sm mb-3 mr-2 btn-block font-weight-bold btn-primary text-white"
+                                   value="Archiwum">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
