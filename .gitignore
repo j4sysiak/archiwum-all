@@ -8,11 +8,15 @@ nbproject/
 build/
 out/
 .gradle/
+/SpringBoot/target
+/SpringBoot/.mvn
+/SpringBoot/.settings
+/SpringBoot/bin
 
 # Pliki systemowe
 .DS_Store
 Thumbs.db
 
-# Pliki logów i inne artefakty
+# Pliki logï¿½w i inne artefakty
 *.log
 system-info.txt
