@@ -1,0 +1,9 @@
+C:\Users\Jacek\Documents\JAVA\SpringBoot\UnitTestProjects\UnitTestRestfulWebServicesTestCRUD
+
+// lub z vaadinem
+C:\Users\Jacek\Documents\JAVA\SpringBoot\MyWorkingTest\SpringBootImageUploader\pom.xml
+https://github.com/bykowski/springboot-image-uploader/blob/master/pom.xml
+
+
+// wzorzec dla połączeń mysql  dla java8
+c:\Users\Jacek\Documents\JAVA\SpringBoot\dockerProjects\demo9\
