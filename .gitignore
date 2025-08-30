@@ -5,29 +5,23 @@
 *.ipr
 *.iws
 nbproject/
+.gradle/
+.settings/
+bin/
+
+# Foldery generowane przez narzędzia budowania (Maven, Gradle)
+# Ignoruje WSZYSTKIE katalogi 'target' i 'build' w całym projekcie
+target/
 build/
 out/
-.gradle/
-SpringBoot/target/
-SpringBoot/.mvn/
-SpringBoot/.settings/
-SpringBoot/bin/
+
+# Pliki specyficzne dla Mavena
+.mvn/
 
 # Pliki systemowe
 .DS_Store
 Thumbs.db
 
-# Pliki logw i inne artefakty
+# Pliki logów i inne artefakty
 *.log
 system-info.txt
-
-# Pliki kompilacji Java
-*.class
-
-# Maven/Gradle IDE files
-.mvn/wrapper/
-mvnw
-mvnw.cmd
-gradle/wrapper/
-gradlew
-gradlew.bat
