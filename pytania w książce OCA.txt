@@ -1,0 +1,470 @@
+
+
+
+==========5==================================
+
+public class Test {
+    public static void main (String[] args) {
+
+        System.out.println("a");
+
+        try {
+            System.out.println("b");
+            throw new IllegalArgumentException();
+        } catch (RuntimeException rte) {
+            System.out.println("c");
+        } finally {
+            System.out.println("d");
+        }
+        System.out.println("ssssssssssss");
+    }
+}
+
+======================6=================
+
+public class Test {
+    public static void main (String[] args) {
+
+        int a = 15;
+        int b = 10;
+
+        Test.addToInt(a, b);
+        System.out.println(a);
+
+        System.out.println("ssssssssssss");
+    }
+
+    private static void addToInt(int x, int y) {
+        x = x + y;
+    }
+}
+
+=====================7============================
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test {
+    public static void main (String[] args) {
+
+        int[] array = {6, 9, 8};
+        List<Integer> list = new ArrayList<>();
+    
+        list.add(array[0]);
+        list.add(array[2]);
+        list.set(1, array[1]);
+        
+        list.remove(0);
+        System.out.println(list);
+        
+        System.out.println("ssssssssssss");
+    }
+    
+}
+
+
+=========================8============================
+
+class Reindeer extends Deer {
+    public Reindeer(int age) {
+        System.out.println("Reindeer");
+    }
+    public boolean hasHorns() {
+        return true;
+    }
+}
+
+public class Deer {
+
+    public Deer() {
+        System.out.println("Deer");
+    } 
+    
+    public Deer(int age) {
+        System.out.println("DeerAge");
+    }
+    
+    private boolean hasHorns() {
+        return false;
+    }
+    
+    public static void main (String[] args) {
+
+    Deer d = new Reindeer(5);
+        System.out.println("," + d.hasHorns());
+
+
+        System.out.println("ssssssssssss");
+    }
+
+}
+
+==========================10=============================
+
+
+public class Test {
+    private String name;
+
+    Test(String s) {
+        name = s;
+    }
+
+
+    public static void main(String[] args) {
+
+        Test t1 = new Test("t1");
+        Test t2 = new Test("t2");
+
+        t1 = t2;
+        t2 = null;
+        t1 = null;
+
+        System.out.println(t2.name);
+
+        System.out.println("ssssssssssss");
+    }
+
+}
+
+
+=========================11===========================
+
+ class Test {
+
+    public static void main(String[] args) {
+
+        int x=5, j=0;
+        OUTER: for (int i=0; i<3;) {
+            INNER: do {
+            i++; //3
+            x++; //12
+            if (x>10) break INNER;
+            x += 4; //10
+            j++;    //1
+            } while (j <= 12);
+
+            System.out.println(x);
+        }
+
+        System.out.println("ssssssssssss");
+    }
+}
+
+==========================12===============================
+
+ class Test {
+
+     private String color;
+     public Test() {
+         this("white");
+     }
+
+     public Test(String xxx) {
+         color=xxx;
+     }
+
+     public static void main(String[] args) {
+
+        Test t = new Test();
+         System.out.println(t.color);
+
+        System.out.println("ssssssssssss");
+    }
+}
+
+===========================13=================================
+
+ class Test {
+
+     public static void main(String[] args) {
+
+         int luck = 10;
+
+         if ((luck>10 ? luck++ : --luck) < 10) {
+             System.out.println("Bear");
+         }
+         if (luck<10) System.out.println("Sahrk");
+
+        System.out.println("ssssssssssss");
+    }
+}
+
+===========================14=====================================
+
+class Chicken {}
+
+interface HenHouse {
+    public List<Chicken> getChickens();
+}
+
+ class ChickenSong {
+
+     public static void main(String[] args) {
+
+        HenHouse ihouse =
+        Chicken chicken = ihouse.getChickens().get(0);
+        
+        for (int i=0; i<ihouse.getChickens().size(); chicken = ihouse.getChickens().get(i++)) {
+            System.out.println("Cluck");
+        }
+
+        System.out.println("ssssssssssss");
+    }
+}
+
+
+===============================15======================================
+
+import java.util.ArrayList;
+import java.util.List;
+
+interface CanSwim{}
+
+class Employee implements CanSwim {}
+
+class Manager extends Employee {}
+
+public class FindAllTadPole {
+
+     public static void main(String[] args) {
+
+         List<Manager> tadpoles = new ArrayList<>();
+
+         tadpoles.add(new Manager());
+
+         for (Employee empl : tadpoles) {
+
+             boolean b1 = empl instanceof Employee;
+             boolean b2 = empl instanceof Manager;
+             boolean b3 = empl instanceof CanSwim;
+
+             CanSwim  i1  = empl;
+             Employee i2  = empl;
+             Object i3 = empl;
+             
+             Manager manager = new Manager();
+             manager = (Manager) empl;
+
+             System.out.println("sssssssssssss");
+         }
+
+        System.out.println("ssssssssssss");
+    }
+ }
+
+
+
+
+================================16===============================================
+
+interface Animal {
+    public default String getName() {
+        return null;
+    }
+}
+
+interface Mammal {
+    public default String getName() {
+        return null;
+    }
+
+}
+
+abstract class Otter implements Mammal, Animal {
+    
+}
+
+================================17==========================================
+public class Test {
+
+     public static void main(String[] args) {
+
+        System.out.println(test(i -> i == 5));
+      //  System.out.println(test(i -> {i == 5;}));
+        System.out.println(test((i) -> i == 5));
+         System.out.println(test((int i) -> i == 5));
+         System.out.println(test((Integer i) -> i == 5));
+         System.out.println(test((int i) -> {return i == 5;}));
+         System.out.println(test((  i) -> {return i == 5;}));
+        System.out.println("ssssssssssss");
+    }
+
+    private static boolean test(Predicate<Integer> p) {
+         return p.test(5);
+    }
+
+ }
+ 
+ 
+ ==================================18================================================
+ 
+ 
+ import java.time.LocalDate;
+import java.time.Month;
+import java.util.Calendar;
+
+
+public class Test {
+
+     public static void main(String[] args) {
+
+         System.out.println(LocalDate.of(2015, Calendar.APRIL, 1));
+         System.out.println(LocalDate.of(2015, Month.APRIL, 1));
+         System.out.println(LocalDate.of(2015, 3, 1));
+         System.out.println(LocalDate.of(2015, 4, 1));
+         System.out.println(new LocalDate(2015, 3, 1));
+
+        System.out.println("ssssssssssss");
+    }
+    
+ }
+ 
+ =========================================20============================================
+
+import java.io.IOException;
+
+public class Test {
+
+     public static void main(String[] args) {
+
+         throw new Exception();
+         throw new IllegalArgumentException();
+         throw new IOException();
+         throw new NullPointerException();
+         throw new NumberFormatException();
+         throw new StackOverflowError();
+
+        System.out.println("ssssssssssss");
+    }
+
+ }
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

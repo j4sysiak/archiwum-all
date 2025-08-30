@@ -1,0 +1,1521 @@
+pytania do kursu: https://www.udemy.com/course/oracle-java-se-8-programmer-i-oca1z0-808-practice-exam/learn/quiz/5129290/test#overview
+
+
+========================================================
+
+interface I {
+    public void displayI();
+}
+
+abstract class C2 implements I {
+    public void displayC2() {
+        System.out.println("C2");
+    }
+}
+
+class C1 extends C2 {
+
+    @Override
+    public void displayI() {
+        System.out.println("C1");
+    }
+    public void mm(){
+        System.out.println("ssssssss");
+    }
+}
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        C2 obj1 = new C1();   // obj1 - niepełny C1 - odpali wszystko z C2 oraz  tylko metody @Override
+        I obj2 = new C1();    // obj2 - zupełnie niepełny C1 - odpali tylko metody @Override
+        obj2.displayI();  //C1
+
+        C2 s =  (C2) obj1;    // także niepełny C1 - odpali wszystko z C2 oraz  tylko metody @Override
+        s.displayC2();  //C2
+        s.displayI();  // C1
+
+        I t = obj1;    // t - zupełnie niepełny C1 - odpali tylko metody @Override
+        t.displayI();  // C1
+
+        System.out.println("sssssssssssssssss");
+    }
+}
+
+========================================================
+
+class Emoloyee {
+    String name;
+    boolean contract;
+    double salary;
+
+    Emoloyee(){
+        // line 1
+    }
+
+    public String toString() {
+        return name + ":" + contract +":"+ salary;
+    }
+    public static void main(String... args) {
+ 
+        Emoloyee e = new Emoloyee();
+        //line 2
+        System.out.println(e);
+        
+        System.out.println("sssssssssssssssss");
+    }
+}
+
+========================================================
+
+class Vehicle {
+    int x;
+
+    Vehicle(){
+        this(10);
+    }
+
+    Vehicle(int ss) {
+        this.x=ss;
+    }
+}
+
+
+
+class Car extends Vehicle {
+    int y;
+
+    Car(){
+        super(10);
+    }
+
+    Car(int rr){
+        super(rr);
+        this.y=rr;
+    }
+
+    public String toString() {
+        return super.x + ":" + this.y;
+    }
+}
+
+public class Test {
+
+    public static void main(String... args) {
+
+        Vehicle vehicle = new Car(20); // niepełny Car
+
+        System.out.println(vehicle);
+
+        System.out.println("sssssssssssssssss");
+    }
+}
+
+========================================================
+
+
+abstract class Planet {
+    protected void revolve() {
+    }
+    abstract void totate();
+}
+
+class Earth extends Planet {
+    @Override
+    void revolve() {
+        System.out.println("sdasda");
+    }
+
+    @Override
+    void totate() {
+    }
+}
+
+========================================================
+public class Test7 {
+
+    public static void main(String[] args) {
+
+        String[][] chs = new String[5][2];
+        chs[0] = new String[2];
+        chs[1] = new String[5];
+        int i = 97;
+
+        for (int a=0; a<chs.length; a++) {
+            for (int b=0; b<chs.length; b++) {
+                chs[a][b] = ""+i;
+                i++;
+            }
+        }
+
+        for (String[] ca : chs) {
+            for (String c : ca) {
+                System.out.println(c + " ");
+            }
+            System.out.println();
+        }
+
+
+        System.out.println("sssssssssssssssssss");
+    }
+}
+
+========================================================
+
+public class Test {
+
+    public static void main(String[] args)   {
+ 
+        Test ex = new Test();
+        int cardNo = 12344;
+        
+        ex.readCard(cardNo);
+        ex.checkCard(cardNo);
+        
+        System.out.println("ssssssssssssssssss");
+    }
+
+    private void checkCard(int cardNo) throws  RuntimeException {
+        System.out.println("dddddddddddddddddd");
+    }
+
+    private void readCard(int cardNo) throws Exception {
+        System.out.println("sssssssssss");
+    }
+
+
+}
+
+========================================================
+
+interface Speakable {
+    public void speak(String a);
+}
+abstract class Robot implements Speakable {
+       public void process();
+}
+
+class Humanoid extends Robot {
+
+    @Override
+    public void speak(String a) {
+        System.out.println(a);
+    }
+
+    @Override
+    public void process() {
+        System.out.println("Helping ...");
+    }
+}
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        Robot r = new Humanoid();
+        r.process();
+        r.speak("Done");
+
+        System.out.println("ssssssssssssssssss");
+    }
+
+
+}
+
+========================================================
+
+package com.udayan.oca;
+
+class Peacock extends Bird {
+    int e;
+    public void dance() {
+        System.out.println("Dance.");
+    }
+
+}
+
+public class Test10 {
+
+    public static void main(String[] args) {
+
+          //1
+//        Bird b1 = new Peacock();  // niepełny Peacock  -  nie odpali dance()
+//        Peacock p1 = new Peacock(); // p1 - pełny Peacock - odpali wszystko z Bird i Peacock
+//        p1 = (Peacock) b1;  // p1 - pełny Peacock
+//        p1.fly();
+//        p1.dance();
+
+        //2
+        Peacock p2 = new Peacock();  // p2 - pełny Peacock
+        Bird b2 = new Bird();        //b2 - pełny Bird
+//      b2 = (Bird) new Peacock();  // b2 - niepełny Peacock
+        b2 = (Bird) p2;       // p - niepełny Peacock - uwaga jeżeli byłaby metoda @Override w Peacock to tam poleci
+        System.out.println(b2.x);
+        //System.out.println(b2.e); // nie widzi z Peacock
+        b2.fly();
+        //b2.dance() // nie widzi z Peacock
+
+        //3
+        Bird p3 = new Peacock();  // p3 - niepełny Peacock    nie odpali dance()
+
+        //4
+        Bird b4 = new Bird();  // b4 - pełny Bird
+        Peacock p4 = new Peacock();  //p4 - pełny Peacock
+        p4 = (Peacock) b4;     // Exception in thread "main" java.lang.ClassCastException: com.udayan.oca.Bird cannot be cast to com.udayan.oca.Peacock
+//      p4.fly();
+//      p4.dance();
+
+        System.out.println("ssssssssssssssssss");
+    }
+
+
+}
+//ma pokazać:  Fly.Dance.
+
+
+========================================================
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        int[] arr = {1, 2, 3, 4};
+        int i = 0;
+
+        do {
+            System.out.println(arr[i] + " ");  //1234
+            i++;
+        } while (i < 5); //i= 4
+
+        System.out.println("ssssssssssssssssss");
+    }
+
+
+}
+
+========================================================
+
+public class Test {
+
+    public static void main(String[] args) {
+ 
+        int ans;
+        try {
+            int num = 10;
+            int div = 0;
+            ans = num / div;
+        } catch (ArithmeticException e) {
+            ans = 0;
+        } catch (Exception ee) {
+            System.out.println("Invalid calculation");
+        }
+
+        System.out.println(ans);
+    }
+
+
+}
+
+========================================================
+
+class S1 {
+    protected void display(int x) {
+        System.out.println("Parent " + x);
+    }
+}
+
+class S2 extends S1 {
+
+    public void display(int x, int y ) {
+        this.display(x);
+        display(y);
+        super.display(y);
+//        System.out.println("Child " + x);
+    }
+
+    @Override
+    public void display(int x) {
+        System.out.println("Child " + x);
+    }
+}
+
+public class Test {
+
+    public static void main(String ... st) {
+
+        S2 sobj = new S2();  //pełny S2 (Child)
+        sobj.display(10, 100);
+
+        System.out.println("ssssssssssssssssssssssss");
+    }
+}
+
+========================================================
+public class Test {
+
+    public static void main (String[] args)  {
+
+        int x = 6;
+        while (isAvailable(x)) {
+            System.out.println(x);
+        }
+
+        System.out.println("ssssssssssssssssss");
+    }
+
+    private static boolean isAvailable(int x) {
+        return  --x > 0 ? true : false;
+    }
+
+}
+
+======================================================
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        List<String> lst = Arrays.asList("EN", "FR", "CH", "JP");
+        Iterator<String> itr = lst.iterator();
+        while (itr.hasNext()) {
+            String e = itr.next();
+            if (e.equals("CH")) {
+                break;
+            }
+            System.out.println(e + " ");
+        }
+
+
+     //   System.out.println("ssssssssssssssssssss");
+    }
+
+}
+
+
+======================================================
+public class Test {
+ 
+
+    public static void main(String[] args) {
+
+        List<String> names = new ArrayList<>();
+        names.add("Robb");
+        names.add("Bran");
+        names.add("Rick");
+        names.add("Bran");
+        
+        if (names.remove("Bran")) {
+            names.remove("Jon");
+        }
+        System.out.println(names);
+
+        System.out.println("sssssssssssssssss");
+    }
+  
+}
+
+============================================================
+
+public class Test {
+    static boolean isAvailable = true;
+
+    public static void main(String[] args) {
+
+        Test ts = new Test();
+        System.out.println(isAvailable + " ");
+        
+        isAvailable = ts.doStuff();
+
+        System.out.println(isAvailable + " ");
+        
+        
+        System.out.println("sssssssssssssssss");
+    }
+
+    private boolean doStuff() {
+        return !isAvailable;
+    }
+
+
+}
+
+========================================================
+
+class Book {
+    int pages;
+}
+
+public class Test {
+    int count;
+    
+    public static void main(String[] args) {
+
+        Test obj = new Test();
+        Book objBook = new Book();
+
+        System.out.println(objBook.pages + ":" + obj.count);
+        obj.method(objBook, obj.count);
+        System.out.println(objBook.pages + ":" + obj.count);
+
+        System.out.println("sssssssssssssssss");
+    }
+
+    private void method(Book objBook, int x) {
+        objBook.pages = 100;
+        x = 200;
+    }
+
+
+}
+
+=============================================================
+
+class LogFileException extends Exception { }
+class AccessViolationException extends RuntimeException { }
+
+public class App {
+
+    public static void main(String[] args) throws LogFileException {
+        App obj = new App();
+        try {
+            obj.open();
+            obj.process();
+            //insert code here
+        } catch (Exception e) {
+            System.out.println("Completed");
+        }
+
+        System.out.println("sssssssssssssssss");
+    }
+
+    private void process() {
+        System.out.println("process");
+        throw new LogFileException();
+    }
+
+    private void open()   {
+        System.out.println("open");
+        throw new AccessViolationException();
+    }
+
+}
+
+===================== 6 ==================================
+
+public class App {
+      int count;
+    public static void displayMsg(){
+        System.out.println("ssssssss " + count++);
+    }
+
+    public static void main(String ... args)  {
+
+        App.displayMsg();
+        displayMsg();
+
+        System.out.println("sssssssssssssssss");
+    }
+}
+
+
+================================================================
+
+
+public class Test  {
+
+    public static void main (String[] args) {
+
+        String ta = "A ";
+        ta = ta.concat("B ");
+        String tb = "C ";
+        ta = ta.concat(tb);
+        ta = ta.replace("B", "C");
+        ta = ta.concat("D");
+
+        System.out.println(ta);
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+===================================================================
+
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        List<String> list = Arrays.asList("A", "B", "C", "D");
+
+        Iterator<String> itr = list.iterator();
+
+        while (itr.hasNext()) {
+            String e = itr.next();
+            if (e=="C"){
+                break;
+            } else {
+                continue;
+                System.out.println(e);
+            }
+        }
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+====================================================================
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        String str = "Sweet Sweet";
+        String str2 = str.trim().charAt(6) + ":" + str.indexOf("Sw" , 1);
+        System.out.println(str2);
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+
+=====================================================================
+
+public class Test {
+
+    String name;
+    boolean contract;
+    double salary;
+
+    Test(){}
+
+    public String toString(){
+        return name + ":" + contract +":"+ salary;
+    }
+
+    public static void main(String ... args)  {
+
+        Test t = new Test();
+        name="ss";
+        t.contract=true;
+        t.salary=100d;
+
+        System.out.println(t);
+
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+===========================================================
+
+class Employee {
+    int x;
+
+    Employee(){
+        new Employee(10);
+    }
+
+    Employee(int ss) {
+        this.x=ss;
+    }
+}
+
+
+
+class Boss extends Employee {
+    int y;
+
+    Boss(){
+        super(10);
+    }
+
+    Boss(int rr){
+        super(rr);
+        this.y=rr;
+    }
+
+    public String toString() {
+        return super.x + ":" + this.y;
+    }
+}
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        Employee empl = new Boss();
+
+        System.out.println(empl);
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+=====================================================================
+public class Test {
+
+    public static void main(String ... args)  {
+
+        String[][] arr = {{"A", "B", "C"}, {"D", "E"}};
+
+        for (int i=0; i<arr.length; i++) {
+            
+            for (int j=0; j<arr[i].length; j++) {
+                System.out.println(arr[i][j] + " ");
+                
+                if (arr[i][j].equals("B")){
+                    continue;
+                }
+            }
+            continue;
+        }
+
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+===========================================================
+
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        String[] arr = {"A", "B", "C", "D"};
+
+        for (int i=0; i<arr.length; i++) {
+            System.out.println(arr[i] + " ");
+            if (arr[i].equals("C")){
+                continue;
+            }
+            System.out.println("Work done");
+            break;
+        }
+
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+==========================================================
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        Predicate<Integer> p = (n) -> n%2 == 0;
+
+        Boolean b = p.test(101);
+
+        System.out.println(b);
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+===============================================================
+
+public class Test {
+
+    public static void main(String ... args)  {
+
+        Short s1 = 200;
+        Integer s2 = 400;
+        Long s3 = (long) s1 + s2;
+
+        String s4 = s3.toString()+s2.toString();
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+============================================================
+
+
+public class MyFile {
+
+    public static void main(String ... args)  {
+
+        String arg1 = args[0];
+        String arg2 = args[1];
+        String arg3 = args[2];
+
+        System.out.println("Args is " + arg3);
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+==========================================================
+
+public class Test {
+
+    public static void main(String ... a)  {
+
+        int array1[] = {1, 2, 3};
+        int array2[] = new int[5];
+
+        array2=array1;
+
+        for (int i : array2) {
+            System.out.println(i + " ");
+        }
+
+        int array3[] = new int[3];  // 0 0 0
+        array3=array2;
+
+        for (int i : array3) {
+            System.out.println(i + " ");
+        }
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+
+=============================================================
+
+public class Alpha {
+
+    int ns;
+    static int s;
+
+    Alpha(int xx) {
+        if (s<xx) {
+            s = xx;  //s=125
+            this.ns=xx; //ns=100
+        }
+    }
+
+    void doPoint() {
+        System.out.println("ns = " + ns + " s= " + s);
+    }
+
+    public static void main(String ... a)  {
+
+        Alpha ref1 = new Alpha(100);  // s=125  ns=100
+        Alpha ref2 = new Alpha(50);   // s=125  ns=0
+        Alpha ref3 = new Alpha(125); //  s=125  ns=125
+        
+        ref1.doPoint();
+        ref2.doPoint();
+        ref3.doPoint();
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+==========================================================================
+
+
+public class Test {
+
+    public static void main(String ... a)  {
+
+        String str1 = "Java";
+        String str2 = new String("java");
+
+        if (str2.equals(str1.toLowerCase())) {
+            System.out.println(str1);
+        }
+ 
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+============================================================
+
+
+public class Test  {
+
+    public static void main(String ... a)  {
+
+        String[] strs = new String[2];
+        int idx=0;
+
+        for (String s : strs) {
+            strs[idx].concat(" element " + idx);
+            idx++;
+        }
+
+        for (idx=0; idx< strs.length; idx++) {
+            System.out.println(strs[idx]);
+        }
+
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+===============================================================
+
+
+public class Test  {
+
+    public static void main(String ... a)  {
+
+        int n[][] ={{1, 3}, {2, 4}};
+
+        for (int i = n.length-1; i >=0; i-- ) {
+            for (int j=n[i].length-1; j >=0; j--) {
+                System.out.println(n[i][j]);
+            }
+        }
+
+
+
+        System.out.println("sssssssssssssssss");
+    }
+
+}
+
+
+=============================================
+
+package com.udayan.oca;
+
+class A {
+    int ns;
+    static int s;
+
+    A(int x){
+        if(s<x) {
+            s=x;  //s=125
+            this.ns=x;
+        }
+    }
+
+    void print(){
+        System.out.println(ns +" "+ s);
+    }
+}
+public class Test {
+
+    public static void main (String[] args)  {
+
+        A a1=new A(50);  //(ns=50, s=125)
+        A a2=new A(125); //(ns=125, s=125)
+        A a3=new A(100); //(ns=0, s=125)
+
+        a1.print();
+        a2.print();
+        a3.print();
+
+        System.out.println();
+    }
+
+}
+
+===================  7
+
+package com.udayan.oca;
+
+class Vehicle {
+    String type = "4W";
+    int maxSpeed=100;
+
+    public Vehicle(String type, int maxSpeed) {
+        this.type = type;
+        this.maxSpeed = maxSpeed;
+    }
+
+    Vehicle(){}
+}
+
+class Car extends Vehicle{
+    String trans;
+
+    public Car(String trans) {
+        this.trans = trans;
+    }
+
+    public Car(String type, int maxSpeed, String trans) {
+        super(type, maxSpeed);
+        this.trans = trans;
+    }
+}
+
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        Car c1 = new Car("Auto");
+        Car c2 = new Car("4W", 150, "Manual");
+
+        System.out.println(c1.type +":"+ c1.maxSpeed +":"+ c1.trans);
+        System.out.println(c2.type +":"+ c2.maxSpeed +":"+ c2.trans);
+
+        System.out.println();
+    }
+
+}
+
+==========================  10
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        char colorCode='y';
+
+        switch (colorCode) {
+            case 'r':
+                int c=100;
+                break;
+            case 'b':
+                c=10;
+                break;
+            case 'y':
+                c=1;
+                break;
+        }
+
+        System.out.println(c);
+    }
+
+}
+
+======================  11
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+    String[][] arr = {{"A", "B", "C"}, {"D", "E"}};
+
+    for (int i=0; i<arr.length; i++) {
+        for (int j=0; j<arr[i].length; j++) {
+            System.out.println(arr[i][j]);
+            if (arr[i][j].equals("B")) {
+                continue;
+            }
+        }
+        continue;
+    }
+
+        System.out.println();
+    }
+
+}
+
+===========================  13
+
+package com.udayan.oca;
+
+
+class Cart {
+    Product p;
+    double totalAmount;
+}
+
+class Product {
+    String name;
+    Double price;
+}
+
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        Cart c = new Cart();
+
+
+        System.out.println(c.p +" "+ c.totalAmount);
+    }
+
+}
+
+
+============================  14
+
+import java.util.List;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        String[] arr = {"Hi", "How", "Are", "You"};
+
+        List<String> arrList = new ArrayList<>(Arrays.asList(arr));
+
+        if (arrList.removeIf(s -> {
+                                    System.out.println(s);
+                                    return s.length()<=2;
+                                  })) {
+            System.out.println(" removed");
+        }
+
+        System.out.println();
+    }
+
+}
+
+
+===========================  27
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        int [] arr = {1,2,3,4};
+        int i=0;
+
+        do {
+            System.out.println(arr[i]);
+            i++;
+        } while (i<4);
+
+        System.out.println();
+    }
+
+
+}
+
+
+===========================  28
+
+package com.udayan.oca;
+
+class StockRoom {
+    private static int stock=10;
+
+    public void purchase(int qty) {
+        stock= stock+qty;
+    }
+
+    public void sell(int qty) {
+        stock= stock-qty;
+    }
+
+    public static void printStock(String action) {
+        System.out.println(action +" : "+ qty +" : "+ stock );
+    }
+
+}
+
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        StockRoom k1 = new StockRoom();
+        k1.sell(5);
+        k1.printStock("Sold");
+
+        StockRoom k2 = new StockRoom();
+        k2.purchase(5);
+        k2.printStock("Purchased");
+
+        System.out.println();
+    }
+
+
+}
+
+
+=========================  30
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+        int x=100;
+        int a = x++;
+        int b= ++x;
+        int c= x++;
+        int d= (a<b) ? (a<c) ? a : (b<c) ? b : c : x;
+
+        System.out.println(d);
+
+        System.out.println();
+    }
+
+
+}
+
+
+
+=======================  32
+
+package com.udayan.oca;
+
+package com.udayan.oca;
+
+interface Readable {
+    public void readBook();
+    public void setBookMark();
+}
+
+abstract class Book implements Readable {
+    public void readBook(){}
+    //n2
+}
+
+class EBook extends Book {
+    public void readBook(){}
+    //n4
+}
+
+public class Test {
+
+    public static void main(String[] args) {
+        Book b1 = new EBook();
+        b1.readBook();
+        System.out.println();
+    }
+    
+}
+
+==================  34
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        String[] p = {"ss", "ll"};
+        int y=p.length;
+        p[1].length();
+        System.out.println();
+    }
+
+
+}
+
+====================== 36
+
+package com.udayan.oca;
+
+package com.udayan.oca;
+
+class Employee {
+    private String name;
+    private int age;
+    private int salary;
+
+    public Employee(String name, int age) {
+        setName(name);
+        setAge(age);
+        setSalary(2000);
+    }
+
+    public Employee(String name, int age, int salary) {
+        this(name, age);
+        setSalary(salary);
+    }
+
+    private void setSalary(int i) {}
+    private void setAge(int age) {}
+    private void setName(String name) {}
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void printDetails() {
+        System.out.println(name +":"+ age +":"+ salary);
+    }
+}
+
+
+
+
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        Employee e1 = new Employee();
+        Employee e2 = new Employee("Jack", 50);
+        Employee e3 = new Employee("Chloe", 40, 5000);
+        
+        e1.printDetails();
+        e2.printDetails();
+        e3.printDetails();
+
+        System.out.println("");
+    }
+
+
+}
+
+
+
+========================== 37
+
+package com.udayan.oca;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        List<String> list = Arrays.asList("A", "B", "C", "D");
+
+        Iterator<String> itr = list.iterator();
+
+        while (itr.hasNext()) {
+            String e =itr.next();
+            if (e=="C") {
+                break;
+            } else {
+               // continue;
+                System.out.println(e);
+            }
+        }
+
+        System.out.println("");
+    }
+
+
+}
+
+
+===================  46
+
+package com.udayan.oca;
+
+class Base {
+    int a=10;
+
+    public void n(){
+        System.out.println("n in Base");
+    }
+
+    public void s(){
+        System.out.println("s in Base");
+    }
+
+}
+
+class Dereived extends Base {
+    int a=20;
+
+    public void n(){
+        System.out.println("n in Derived");
+    }
+
+    public void m(){
+        System.out.println("m in Derived");
+    }
+
+    public void p(){
+        System.out.println("p in Derived");
+    }
+}
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        Base ba = new Base();
+        ba.n();
+        Dereived d = new Dereived();
+
+        d=ba;
+        
+        
+        ba = (Base) d;
+        int x=ba.a;
+        ba.n();
+        ba.s();
+
+
+         d.s();
+         d.n();
+         d.p();
+         d.m();
+         x=d.a;
+
+         Base b = new Dereived();
+         b.s();
+         b.n();
+      //   b.p();
+      //   b.m();
+         x=b.a;
+
+         d = (Dereived) b;
+         d.s();
+         d.n();
+         d.p();
+         d.m();
+         x=d.a;
+
+        System.out.println(x);
+    }
+
+
+}
+
+==============================  47
+
+package com.udayan.oca;
+
+public class Test {
+    int x;
+    public static void displayM() {
+        System.out.println("ddddddddddddddd");
+    }
+
+    public static void main(String[] args) {
+        Test.displayM();
+        displayM();
+        new Test().displayM();
+
+        System.out.println("");
+
+    }
+}
+
+=============================  48
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        Short s1 = 200;
+        Integer s2 = 400;
+        // String s3 = (String) (s1+s2);
+        Long s4 =  (long)  (s1+s2);
+
+
+        System.out.println("");
+
+    }
+}
+
+=============================  49
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
