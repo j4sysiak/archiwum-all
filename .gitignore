@@ -8,10 +8,10 @@ nbproject/
 build/
 out/
 .gradle/
-/SpringBoot/target
-/SpringBoot/.mvn
-/SpringBoot/.settings
-/SpringBoot/bin
+SpringBoot/target
+SpringBoot/.mvn
+SpringBoot/.settings
+SpringBoot/bin
 
 # Pliki systemowe
 .DS_Store
