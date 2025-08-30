@@ -8,15 +8,26 @@ nbproject/
 build/
 out/
 .gradle/
-SpringBoot/target
-SpringBoot/.mvn
-SpringBoot/.settings
-SpringBoot/bin
+SpringBoot/target/
+SpringBoot/.mvn/
+SpringBoot/.settings/
+SpringBoot/bin/
 
 # Pliki systemowe
 .DS_Store
 Thumbs.db
 
-# Pliki log�w i inne artefakty
+# Pliki logw i inne artefakty
 *.log
 system-info.txt
+
+# Pliki kompilacji Java
+*.class
+
+# Maven/Gradle IDE files
+.mvn/wrapper/
+mvnw
+mvnw.cmd
+gradle/wrapper/
+gradlew
+gradlew.bat
