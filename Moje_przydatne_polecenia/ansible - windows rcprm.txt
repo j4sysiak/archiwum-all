@@ -1,0 +1,177 @@
+[windows]
+windows10 ansible_host=52.207.71.219
+
+[windows:vars]
+ansible_user=ansible
+ansible_password=Warszawa5584#
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+
+/////////////////////////////////
+
+ansible all -i inventory -m win_ping
+
+
+
+[win]
+172.16.2.5 
+172.16.2.6 
+
+[win:vars]
+ansible_user=vagrant
+ansible_password=password
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+
+////////////////////////////////////////////
+
+[windows]
+windows10 ansible_host=52.207.71.219
+
+[windows:vars]
+ansible_user=ansible
+ansible_password=Warszawa5584#
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_winrm_server_cert_validation=ignore
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+
+////////////////////////////////////////////
+
+do odpalania do docelowym Linuxsie:
+ubuntu@ip-172-31-56-91:/etc/ansible$ ansible all -a "netstat" -u Administrator --ask-pass
+SSH password: 
+server1 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to create temporary directory. In some cases, you may have been able to authenticate and did not have permissions on the target directory. Consider changing the remote tmp path in ansible.cfg to a path rooted in \"/tmp\", for more error information use -vvv. Failed command was: ( umask 77 && mkdir -p \"` echo ~/.ansible/tmp `\"&& mkdir \"` echo ~/.ansible/tmp/ansible-tmp-1676833527.843609-3232-101182360293374 `\" && echo ansible-tmp-1676833527.843609-3232-101182360293374=\"` echo ~/.ansible/tmp/ansible-tmp-1676833527.843609-3232-101182360293374 `\" ), exited with result 1",
+    "unreachable": true
+}
+
+
+do odpalania do docelowym Windowsie
+
+ubuntu@ip-172-31-56-91:/etc/ansible$ vi hosts 
+ubuntu@ip-172-31-56-91:/etc/ansible$ vi inventory 
+ubuntu@ip-172-31-56-91:/etc/ansible$ ansible all -i inventory -m win_ping
+windows10 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+ubuntu@ip-172-31-56-91:/etc/ansible$ vi inventory 
+ubuntu@ip-172-31-56-91:/etc/ansible$ 
+
+
+
+
+==========================windows===============================
+
+
+
+UWAGA po kazdym restarcie (reboot w EC2 zmienia się IP) , jednak samego Windowsa można restartowć bez zmiany IP będzie.
+
+public IP:  52.207.71.219
+public dns: ec2-52.207.71.219.compute-1.amazonaws.com
+
+Administrator   /   XLEXKUyU.%)lx-rZe?tr==OA&jJn5gdh
+
+
+pubplic IP:  52.207.71.219
+
+
+do windowsow:
+ssh -i "win-server-aws-2.pem" Administrator@ec2-52-207-71-219.compute-1.amazonaws.com
+
+do linuxów:
+ssh Administrator@ec2-52-207-71-219.compute-1.amazonaws.com
+
+
+
+=============================linux=======================================
+
+
+
+i-04bf4b043b73f64d4 (linux-aws)
+PublicIPs: 100.25.20.59    PrivateIPs: 172.31.56.91
+
+
+ubuntu@ip-172-31-56-91:~$ hostname
+ip-172-31-56-91
+
+
+UWAAGA po restartcie EC2 zmieniaja sie IP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+----------------  Putty (need ppk format private key)
+
+user:  ubuntu
+1. Pageant:  dodaj klucz:  c:\Users\Jacek\.ssh\aws-linux\linux-aws.ppk
+2. w Putty:  dodaj w Connection -> SSH -> Auth (Brows:) - klucz: c:\Users\Jacek\.ssh\aws-linux\linux-aws.ppk 
+ host:  ec2-100-25-20-59.compute-1.amazonaws.com
+ 
+ 
+--------------  power shell  (need pem OpenSSH format private key)
+                          
+PS C:\Users\Jacek\.ssh\aws-linux> ssh -i "linux-aws-openSSH.pem" ubuntu@ec2-100-25-20-59.compute-1.amazonaws.com
+Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-1028-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Feb 19 11:53:06 UTC 2023
+
+  System load:  0.00439453125     Processes:             96
+  Usage of /:   20.1% of 7.57GB   Users logged in:       0
+  Memory usage: 19%               IPv4 address for eth0: 172.31.56.91
+  Swap usage:   0%
+
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+Last login: Sun Feb 19 11:40:00 2023 from 18.206.107.27
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

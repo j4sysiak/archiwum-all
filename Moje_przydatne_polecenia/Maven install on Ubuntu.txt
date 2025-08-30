@@ -1,0 +1,79 @@
+https://phoenixnap.com/kb/install-maven-on-ubuntu
+
+
+Install the Latest Release of Maven on Ubuntu
+
+1.
+
+sudo apt update
+sudo apt upgrade
+sudo apt install default-jdk
+java -version
+
+2. Download the Maven install file in the /tmp directory:
+
+wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz -P /tmp
+
+
+Once the download is complete, extract the installation file in the /opt directory:
+sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
+
+Create a symbolic link called maven leading to the Maven installation directory:
+sudo ln -s /opt/apache-maven-3.8.6 /opt/maven
+
+
+Step 3: Set Up Environment Variables
+1. Use the Nano text editor to create and open the maven.sh script file in the /etc/profile.d/ directory:
+
+sudo nano /etc/profile.d/maven.sh
+
+to zapisujemy w pliku maven.sh:
+
+export JAVA_HOME=/usr/lib/jvm/default-java
+export M2_HOME=/opt/maven
+export MAVEN_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+
+Make the maven.sh file executable using the chmod command:
+sudo chmod +x /etc/profile.d/maven.sh
+
+
+
+Execute the maven.sh script file with the source command to set up the new environment variables:
+source /etc/profile.d/maven.sh
+
+
+
+Step 4: Verify Maven Installation
+Check the current version of Maven to verify the installation:
+
+mvn -version
+
+
+jacek@BERLIN:/etc/profile.d$ mvn -version
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /opt/maven
+Java version: 11.0.17, vendor: Ubuntu, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "5.10.102.1-microsoft-standard-wsl2", arch: "amd64", family: "unix"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

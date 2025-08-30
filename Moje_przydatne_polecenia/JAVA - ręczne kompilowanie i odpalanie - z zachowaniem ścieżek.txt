@@ -1,0 +1,96 @@
+
+javac nazwa_klasy.java
+
+powstaje plik nazwa_klasy.class
+
+
+uruchomienie:  java nazwa_klasy
+
+
+
+----------------------------- przyk³ad 1  (cmd)
+
+uruchamianie javy (je¿eli mamy jara),
+plik jar le¿y w katalogu:  build\libs\  
+java -jar myGradleProject-2.jar
+
+----------------------------- przyk³ad 2
+
+w katalogu build/classes/java/main/org/gradle/poetry jest zbudowana klasa Poetry (Poetry.class - nie jar !!1)
+odpalenie tej klasy:
+java -cp build/classes/java/main/ org.gradle.poetry.Poetry
+
+
+----------------------------  przyk³ad 3  (cmd)
+
+mamy klasê z main() w pliku:  c:\Users\Jacek\Documents\JAVA\OCA\OCA-tmp\src\com\company\com\company\Test.java
+
+budujemy: 
+idziemy do bin javy:
+cd c:\Program Files\Java\jdk1.8.0_241\bin
+uruchamiamy polecenie:
+c:\Program Files\Java\jdk1.8.0_241\bin>javac c:\Users\Jacek\Documents\JAVA\OCA\OCA-tmp\src\com\company\Test.java
+
+w katalogu c:\Users\Jacek\Documents\JAVA\OCA\OCA-tmp\src\com\company\    powstaje plik Test.class
+
+odpalamy go:
+c:\Program Files\Java\jdk1.8.0_241\bin>java -cp c:\Users\Jacek\Documents\JAVA\OCA\OCA-tmp\src\ com.company.C
+"Hello World"
+
+
+----------------------------  przyk³ad 4  (cmd)
+najpierw ustaw to w sesji:
+ustawianie katalogów domowych np: JAVA_HOME w Windows:
+cmd>set JAVA_HOME="C:\Program Files\Java\jdk1.8.0_241"
+cmd>set PATH=%JAVA_HOME%\bin;%PATH%
+
+
+idziemy do katalogu z nasz¹ aplikacj¹:  c:\Users\Jacek\Documents\JAVA\OCA\OCA-tmp
+na tym samym poziomie co src mamy katalog classes
+
+kompilacja:
+javac -d classes\ src\com\company\oca\test\Test.java
+
+plik Test.class wyl¹duje w katalogu: ...\classes\com\company\oca\test\
+
+uruchamianie:
+java -cp classes\ com.company.oca.test.Test
+
+Welcome! Hello World!
+
+
+---------------------------- przyk³¹d 4 (GitBash)
+
+idziemy do katalogu z nasz¹ aplikacj¹:  c:\Users\Jacek\Documents\JAVA\OCA\OCA-tmp
+na tym samym poziomie co src mamy katalog classes
+
+Jacek@BERLIN MINGW64 ~/Documents/JAVA/OCA/OCA-tmp (master)
+$ javac -d classes/ src/com/udayan/oca/MyFile.java
+
+plik Test.class wyl¹duje w katalogu: ...\classes\com\company\oca\test\
+
+Jacek@BERLIN MINGW64 ~/Documents/JAVA/OCA/OCA-tmp (master)
+$ java -cp classes/ com.udayan.oca.MyFile w we rrr
+Args is rrr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

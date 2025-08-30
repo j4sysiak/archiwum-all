@@ -1,0 +1,646 @@
+tak mam ustawione teraz zmienne œr.
+
+ 
+PATH=c:\apache-ant-1.9.6\bin\;C:\Ruby193\bin;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;C:\Program Files\ATI Technologies\ATI Control Panel;C:\mysql\bin;c:\Program Files\Java\jdk1.7.0_79\bin;c:\Program Files\Java\jre7\bin;C:\AppServ2\Apache2.2\bin;C:\AppServ2\php5;C:\AppServ2\MySQL\bin;C:\apache-tomcat-7.0.62\bin;C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin
+
+
+----------------------------------------------------------------------
+
+http://courses.caveofprogramming.com/
+l: jaceksysiak@wp.pl
+h: W...4
+
+
+
+ustawione zmienne œrodowiskowe (globalnie):
+
+Zmienne u¿ytkownika aa:
+APACHE_HOME:   C:\AppServ2\Apache2.2
+CATALINA_HOME:  C:\apache-tomcat-7.0.62
+CLASSPATH:  c:\Program Files\Java\jdk1.7.0_79\jre\lib\ext;c:\apache-tomcat-7.0.62\bin;c:\AppServ2\MySQL\bin;c:\AppServ2\Apache2.2\;c:\AppServ2\php5
+JAVA_HOME:  c:\Program Files\Java\jdk1.7.0_79
+JRE_HOME:   c:\Program Files\Java\jre7
+MySQL_HOME:  c:\AppServ2\MySQL\
+PATH:  C:\AppServ2\Apache2.2\bin;C:\AppServ2\php5;C:\AppServ2\MySQL\bin;C:\apache-tomcat-7.0.62\bin
+
+
+Zmienne systemowe:  Path
+C:\Ruby193\bin;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;C:\Program Files\ATI Technologies\ATI Control Panel;C:\mysql\bin;c:\Program Files\Java\jdk1.7.0_79\bin;c:\Program Files\Java\jre7\bin;C:\AppServ2\Apache2.2\bin;C:\AppServ2\php5;C:\AppServ2\MySQL\bin;C:\apache-tomcat-7.0.62\bin;C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin
+
+opcjonalnie:
+ustawienie zmiennych w sesji:
+uruchomienie mysql:
+
+set MySQL_HOME=c:\AppServ2\MySQL\
+set PATH=c:\AppServ2\MySQL\\bin\;%PATH%
+
+wyœwietlenie zmiennej:
+C:\Documents and Settings\aa>echo %MySQL_HOME%
+c:\AppServ2\MySQL\
+
+
+===============  uruchomienie rêczne mysql: MySQL56    
+
+(automatyczne:  Nale¿y w³¹czyæ MySQL - us³uga Windows MySQL56)  - w³¹czy siê proces:  mysqld.exe
+
+wykonaj komendy po kolei:
+
+C:\Documents and Settings\aa>mysqld --skip-grant-tables &      (to uruchamia bazê mysql)
+2015-09-09 05:39:14 0 [Warning] TIMESTAMP with im2plicit DEFAULT value is deprec
+ted. Please use --explicit_defaults_for_timestamp server option (see documentat
+on for more details).
+2015-09-09 05:39:14 0 [Note] mysqld (mysqld 5.6.25) starting as process 648 ...
+
+# mysql.exe -u root -p   ( lub mysql -u root mysql)    (to uruchamia konsolê mysql)  has³o: W...4
+ lub korzystamy z phpMyAdmin
+http://localhost/phpMyAdmin/         (umo¿liwia dostêp do bazy mysql z lokalizacji c:\Program Files\MySQL\ ale nale¿y uruchomiæ najpierw usu³ugê Windowsa Apache.2.2) )
+
+mo¿emy te¿ korzystaæ z MySSQ Workbench
+
+UPDATE user SET Password=PASSWORD('Warszawa5584') WHERE User='root'; FLUSH PRIVILEGES; exit;
+
+CREATE DATABASE PCDB;
+USE PCDB;
+CREATE TABLE names (
+first VARCHAR(40) NOT NULL,
+second VARCHAR(40) NOT NULL);
+
+insert into names (first, second) values ('jacek', 'sysiak');
+insert into names (first, second) values ('wacek', 'sysiak');
+
+select * from names ;
+
+
+mo¿na wykorzystaæ projekt w Eclipse (MySQLConnection) do sprawdzenie po³¹czenia i pobierania danych
+
+tutorial:
+https://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html#MySQL_DBCP_Example
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| bazaosob           |
+| webshop            |
++--------------------+
+14 rows in set (0.52 sec)
+
+mysql> use webshop;
+Database changed
+
+mysql> show tables;
++-------------------+
+| Tables_in_webshop |
++-------------------+
+| users             |
++-------------------+
+1 row in set (0.02 sec)
+
+ 
+mysql> select * from users;
++----+-------------------+----------+
+| id | email             | password |
++----+-------------------+----------+
+|  1 | jaceksysiak@wp.pl | jacek123 |
+|  2 | admin@wp.pl       | admin123 |
++----+-------------------+----------+
+2 rows in set (0.19 sec)
+
+
+
+================  uruchamianie Apache.2.2:    teraz to s³u¿y mi tylko do odpalania phpMyAdmin dla mojej instancji MySqla
+
+apacha uruchamiamy service (usu³ugê Windowsa Apache.2.2).
+"C:\AppServ2\Apache2.2\bin\httpd.exe" -k runservice
+
+
+http://localhost/phpMyAdmin/         (umo¿liwia dostêp do bazy mysql z lokalizacji c:\Program Files\MySQL\MySQL Server 5.6\ )
+root (W...4)
+ 
+
+ lub mo¿emy u¿yæ:
+ MySQL Workbench CE for Windows version 5.2.47  revision 10398
+
+Configuration Directory: C:\Documents and Settings\aa\Dane aplikacji\MySQL\Workbench
+uruchomienie:  C:\Program Files\MySQL\MySQL Workbench 5.2 CE\MySQLWorkbench.exe
+ 
+ 
+================  uruchamianie apache-tomcat-7.0.62  (Catalina) - na tym dzia³a te¿ Eclipse:
+nie mo¿e byæ jednak 2 instancji apache-tomcat-7.0.62 (jeden uruchomiony z cmd a drugi z Eclipsa).
+
+
+cmd:
+set JAVA_HOME=C:\jdk1.7.0_67
+
+set JRE_HOME=C:\jre7
+
+set PATH=C:\jdk1.7.0_67\bin;C:\jre7\bin;%PATH%
+
+set CATALINA_HOME=C:\apache-tomcat-7.0.62
+
+# cd C:\apache-tomcat-7.0.62\bin
+# startup.bat
+# shutdown.bat  zamyka serwer http
+
+przyk³ady:
+http://localhost:8080
+http://localhost:8080/HelloWorld/loginpage
+http://localhost:8080/HelloWorld/Demo
+
+
+
+
+
+
+
+
+
+-=========================== Apache2.4    XAMPP   (c:\xampp\apache\)  http://127.0.0.1/phpmyadmin/
+-=========================== mysqld.exe  (c:\xampp\mysql\)
+
+c:\xampp\*
+
+po zainstalowaniu XAMPP mam równie¿ Apache2.4 + MySQL + wiele innych narzêdzi Webowych
+Je¿eli chcemy korzystaæ z XAMPP to trzeba wy³¹czyæ instancje Apache2.2 (us³ug¹ Windowsa + sprawdzenie czy jest wy³¹czone w Eclipse - EE (Servers)) i apache-tomcat-7.0.62  (# shutdown.bat  zamyka serwer http  patrz powyrzej)
+Nale¿y te¿ wy³¹czyæ MySQL - us³uga Windows MySQL56
+
+uruchamiamy panel xampp:  C:\xampp\xampp-control.exe
+uruchamiamy Apache jako service  (us³uga Apache2.4 uruchomiona jako serwis Windowsa) - dostêp do panelu administracyjnego: http://localhost/xampp/
+uruchamiamy mysql jako service   (us³uga mysql uruchomiony jako serwis Windowsa      - dostêp do panelu administracyjnego: http://localhost/phpmyadmin/
+
+ 
+
+Apache2.4 uruchomiony jako serwis Windowsa
+chodzi na portach: 80  oraz 443
+
+mysql uruchomiony jako serwis Windowsa
+chodzi na portach: 3306
+
+http://localhost/xampp/splash.php
+http://localhost:80
+http://localhost/xampp/
+
+
+========================================================
+
+deployowanie na tomcat-apache:
+umieszczamy plik war (export z projektu w Eclipse)  w lokalizacji c:\apache-tomcat-7.0.62\webapps\  i restartujemy tomcat-apache
+
+
+plik war mo¿emy te¿ utworzyæ wg schematu:
+---------------------------  tworzenie war
+struktura katalogów i plików jak w:  c:\DBApp\
+
+polecenie:
+#  jar cf DBApp.war .
+========================================
+
+ 
+
+powi¹zanie Java-Tomcat:
+
+set CLASSPATH=c:\Program Files\Java\jdk1.7.0_79\jre\lib\ext;c:\apache-tomcat-7.0.62\bin
+
+
+======================================================================
+
+!!!!!!!!!   UWAGA USTAW set i path do JAVA !!!!!!!!!!!!!!!
+set:
+JAVA_HOME=C:\Program Files\Java\jdk1.7.0_67\bin
+JRE_HOME=C:\Program Files\Java\jre7\bin
+
+set PATH=C:\Program Files\Java\jdk1.7.0_67\bin;C:\Program Files\Java\jre7\bin;%PATH%
+
+path:
+C:\testowanie>path
+PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\AT
+I Technologies\ATI Control Panel;C:\Program Files\Java\jdk1.7.0_67\bin
+
+
+
+C:\Documents and Settings\jacek>java -version
+java version "1.7.0_67"
+Java(TM) SE Runtime Environment (build 1.7.0_67-b01)
+Java HotSpot(TM) Client VM (build 24.65-b04, mixed mode, sharing)
+
+
+
+---------------------- 1
+Kompilacja i uruchomienie kodu Java z do³¹czon¹ jedn¹ zewnêtrzn¹ bibliotek¹ jar
+
+kompilacja:
+C:\testowanie>  javac -cp ./;./lib/htmlparser-1.6.jar Test.java
+
+uruchomienie:
+C:\testowanie>  java -cp ./;./lib/htmlparser-1.6.jar Test
+
+
+
+
+----------------------  2
+Kompilacja i uruchomienie kodu Java z do³¹czonymi kilkoma zewnêtrznymi bibliotekami jar
+
+kompilacja:
+C:\testowanie>  javac -cp ./;./lib/common-lang3.jar;./lib/htmlparser-1.6.jar Test.java
+
+uruchomienie:
+C:\testowanie>  java -cp ./;./lib/common-lang3.jar;./lib/htmlparser-1.6.jar Test
+
+
+--------------------- 3
+Kompilacja i uruchomienie kodu Java z kilkoma klasami  ((main):Test2.java + Person.java  + Student.java
+
+C:\testowanie\2>  javac Test2.java
+
+C:\testowanie\2>  java  Test2
+Student [idKartyStud=100, idIndex=200, kierunek=Medycyna, name=Kowalski, wiek=19
+]
+
+
+
+--------------------- 4
+Kompilacja i uruchomienie kodu Java z kilkoma klasami  ((main):Test2.java + Person.java  + Student.java
+oraz z zewnêtrz¹ bibliotek¹ jar
+
+C:\testowanie\2>   javac -cp ./;./lib/common-lang3.jar Test2.java
+
+C:\testowanie\2>java -cp ./;./lib/common-lang3.jar Test2
+java.lang.String@a17083[value={s,t,a,r,t},hash=109757538]
+Student [idKartyStud=100, idIndex=200, kierunek=Medycyna, name=Kowalski, wiek=19
+]
+java.lang.String@10da5eb[value={e,n,d},hash=100571]
+
+
+
+-------------------- 5    
+classpath - wskazuje bezwzglêdn¹ œcie¿kê do pliku wykonywalnego class
+
+--------------a
+wersja bez pakietu
+
+mo¿emy te¿ uruchomiæ Test2 z opcj¹ -classpath
+
+w lokalizacji np c:\testowanie\8\   umieszczamy plik TestOutput2.java
+
+
+klasa: TestOutput2.java
+-------------------------------
+public class TestOutput2 {
+
+	public static void main(String[] args) {
+		System.out.println("This is output to standard output");
+		System.err.println("This is output to standard error");
+	}
+}
+-------------------------------
+
+kompilacja:
+C:\testowanie\8>  javac TestOutput2.java
+
+uruchomienie ze œcie¿ki bie¿¹cej:
+C:\testowanie\8>java TestOutput2
+
+This is output to standard output
+This is output to standard error
+
+
+uruchomienie z k¹dkolwiek (trzeba podaæ -classpath ze œcie¿k¹ do pliku wykonywalnego TestOutput2.class)
+
+C:\>java -classpath c:\testowanie\8 TestOutput2
+This is output to standard output
+This is output to standard error
+
+
+-------------- b
+wersja z pakietem:  package pl.jaceksysiak;
+
+
+w lokalizacji np c:\testowanie\9\   umieszczamy plik TestOutput3.java
+
+
+klasa: TestOutput3.java
+-------------------------------
+package pl.jaceksysiak;
+
+public class TestOutput3 {
+
+	public static void main(String[] args) {
+		System.out.println("This is output to standard output");
+		System.err.println("This is output to standard error");
+	}
+}
+-------------------------------
+
+
+kompilacja:
+C:\testowanie\9>java TestOutput3
+
+plik wynikowy TestOutput3.class  umieszczamy w katalogu:
+c:\testowanie\9\pl\jaceksysiak\
+
+
+uruchomienie:
+C:\testowanie\9>java pl.jaceksysiak.TestOutput3
+This is output to standard output
+This is output to standard error
+
+
+przechodzimy gdziekolwiek:
+C:\testowanie\9>cd ../..
+
+
+uruchomienie z -classpath:
+C:\>java -classpath c:\testowanie\9 pl.jaceksysiak.TestOutput3
+This is output to standard output
+This is output to standard error
+
+
+
+
+
+-------------------- 6
+ classpath c.d.
+
+
+przechodzimy do jakiejkolwiek lokalizacji (innej ni¿ ta, gdzie znajduj¹ siê pliki class) i wywo³ujemy program:
+
+C:\>  java -classpath C:\testowanie\2 Test2
+Student [idKartyStud=100, idIndex=200, kierunek=Medycyna, name=Kowalski, wiek=19
+]
+
+
+
+
+-----------------  7
+tworzenie w³asnej biblioteki jar (z Eclipsem)
+
+w Eclipsie tworzymy nowy projekt 
+tworzymy pakiet: package pl.jaceksysiak.Exercise5;
+tworzymy klasê: Zegar.java
+
+
+klasa Zegar.java:
+----------------------------------------
+package pl.jaceksysiak.Exercise5;
+
+import java.util.Date;
+
+public class Zegar{
+	
+	/*konstruktor wypisze godzinê na konsoli*/
+    public Zegar(){
+        System.out.println("Dzisiaj jest " + new Date());
+    }
+}
+----------------------------------------
+
+tworzymy z projektu plik jar   i zapisujemy go gdziekolwiek
+(projekt \ ekport \ plik jar \ nazwa (Zegar) \ zapisz (C:\))
+
+w katalogu np:  c:\testowanie\4\  umieszczamy plik Klasa.java
+
+
+Klasa.java:
+----------------------------------------
+import pl.jaceksysiak.Exercise5.Zegar;
+
+public class Klasa{
+    public static void main (String args[]){
+        System.out.println("Hello, tu klasa");
+        new Zegar();
+    }
+}
+----------------------------------------
+
+klasa Klasa.java je¿eli chce korzystaæ z biblioteki Zegar.jar to powinna zaimportowaæ pakiet 
+w którym skompilowano t¹ bibliotekê, czyli: import pl.jaceksysiak.Exercise5.Zegar;
+
+w miejscu, gdzie umieszczony jest plik Klasa.java tworzymy katalog librZegar i wrzucamy tam plik Zegar.jar
+
+kompilacja:
+C:\testowanie\4>javac -cp ./;librZegar\Zegar.jar Klasa.java
+
+uruchomienie:
+C:\testowanie\4>java -cp ./;librZegar\Zegar.jar Klasa
+
+Hello, tu klasa
+Dzisiaj jest Sat Dec 20 06:18:37 CET 2014
+
+
+
+-----------------  8   ?????????????????  UWAGA co z tym jest nie tak
+tworzenie w³asnej biblioteki jar (bez Eclipsa)
+Tworzenie w³asnej bibioteki. 
+
+
+C:\Klasa.java       <- to klasa g³ówna
+C:\jlib\Zegar.java  <- to biblioteka
+
+
+
+Klasa.java:
+-----------
+import jlib.Zegar;
+public class Klasa{
+   public static void main (String args[]){
+       System.out.println("Hello, tu klasa");
+       new Zegar();
+   }
+}
+
+Zegrar.java:
+------------
+package jlib;
+import java.util.Date;
+public class Zegar{
+   public Zegar(){
+       System.out.println("Dzisiaj jest " + new Date());
+   }
+}
+
+
+C:\>javac C:\jlib\Zegar.java
+
+C:\>jar -cvf bibl.jar C:\jlib\Zegar.class
+added manifest
+adding: C:/jlib/Zegar.class(in = 606) (out= 371)(deflated 38%)
+
+kompilacja:
+C:\>javac -cp ./;./bibl.jar Klasa.java
+
+uruchomienie:
+C:\>java -cp ./;./bibl.jar Klasa
+
+Hello, tu klasa
+Dzisiaj jest Fri Dec 19 06:19:53 CET 2014
+
+
+
+
+==================================
+http://www.avajava.com/tutorials/lessons/how-do-i-update-my-classpath-to-include-a-jar-file.html?page=1
+
+How do I update my classpath to include a jar file?
+
+plik Howdy.java:
+
+--------------------------------------------------------------------------------
+import org.apache.commons.lang.StringUtils;
+
+class Howdy {
+	public static void main(String [] args) {
+		System.out.println("Hello there");
+		String x = "kat";
+		String y = StringUtils.replace(x, "k", "c");
+		System.out.println(y);
+	}
+}
+--------------------------------------------------------------------------------
+
+
+struktura:
+c:\stuff  to jest plik Howdy.java
+c:\stuff\lib  to jest commons-lang-2.3.jar
+
+
+++++++++++++ 1 sposób
+
+
+c:\stuff>javac -cp /stuff/lib/commons-lang-2.3.jar;. Howdy.java
+
+c:\stuff>java -cp /stuff/lib/commons-lang-2.3.jar;. Howdy
+Hello there
+cat
+
+
+
+
+++++++++++++ 2 sposób
+
+c:\stuff>set CLASSPATH=/stuff/lib/commons-lang-2.3.jar;.
+
+c:\stuff>javac Howdy.java
+
+c:\stuff>java Howdy
+Hello there
+cat
+
+
+ 
+
+
+-------------------------   uruchomienie programu z cmd  (zbudowanego w Eclipse)
+budujemy projekt w Eclipse
+pakiet:  pl.jaceksysiak
+klasa: Demo7
+budujemy projekt:  w pliku bin powstaje Demo7.class
+
+kopiujemy Demo7.class do katalogu C:\pl\jaceksysiak
+
+przechodzimy do jakiegokolwiej lokalizacji windowsa w cmd
+ustawiamy œcie¿kê PATH do jre6:
+C:\>PATH=%PATH%;c:\Program Files (x86)\Java\jre6\bin\
+
+UWAGA:  je¿eli budujemy w Eclipse projekt pod jre6 to musimy go te¿ uruchamiaæ w œrodowisku jre6
+
+i uruchamiamy:
+
+C:\pl\jaceksysiak>java -classpath C:\ pl.jaceksysiak.Demo7
+executing Demo7 ...
+
+
+
+----------------------   Compile and Run JAVA using ANT
+https://www.youtube.com/watch?v=ERbyZlyM_d4
+
+
+
+---------------------    war and deploy to JBoss
+https://www.youtube.com/watch?v=ADrEi7GeCQk
+
+
+ 
+
+----------------------------------------------------  tworzenie war
+struktura katalogów i plików jak w:  c:\DBApp\
+
+polecenie:
+#  jar cf DBApp.war .
+
+
+---------------  ANT budowanie programu 
+tutorial:  https://www.youtube.com/watch?v=ERbyZlyM_d4
+przyk³ad projektu:  c:\Documents and Settings\aa\workspace_juno\AntWithJava\
+
+build.xml:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="run" name="Zone Academy - compile and run java">
+<target name="run" depends="compile">
+  <java classname="pl.jaceksysiak.Demo" >
+    <classpath path="staging" />
+  </java>
+</target>
+<target name="compile">
+  <javac srcdir="./src" destdir="staging" /> 
+</target>
+</project>
+
+przekopiowujemy plik Demo.class z c:\Documents and Settings\aa\workspace_juno\AntWithJava\staging\pl\jaceksysiak\   do C:\pl\jaceksysiak
+C:\>java -classpath C:\ pl.jaceksysiak.Demo
+executing Demo ...
+
+plik Demo.class te¿ jest w bin:  c:\Documents and Settings\aa\workspace_juno\AntWithJava\bin\pl\jaceksysiak\
+C:\>java -classpath C:\ pl.jaceksysiak.Demo
+executing Demo ...
+
+
+
+       uruchamianie z zewn¹trz eclipsa:
+
+ustaw siê na œcie¿ce projektu cmd 
+c:\Documents and Settings\aa\workspace_juno\AntWithJava
+
+
+cd c:\Documents and Settings\aa\workspace_juno\AntWithJava
+
+
+ustaw œcie¿ki do ant:
+
+c:\Documents and Settings\aa\workspace_juno\AntWithJava>PATH=%PATH%;c:\ant-1.6.2\bin\ 
+
+budowanie projektu:
+
+c:\Users\jsysiak\workspace_KEPLER_64\AntWithJava5>ant
+Buildfile: build.xml
+
+compile:
+
+run:
+     [java] executing Demo10 ...
+
+BUILD SUCCESSFUL
+Total time: 1 second
+
+
+przenosimy plik Demo.class z c:\Documents and Settings\aa\workspace_juno\AntWithJava\staging\pl\jaceksysiak\
+do C:\pl\jaceksysiak
+i uruchamiamy:
+java -classpath C:\ pl.jaceksysiak.Demo
+
+
+
+
+=====================================================
+przyk³ad:   "16  Using External APIs in Web Applications.avi"
+
+zamieszczanie zawnêtrznych bibliotek jar do projektu:
+
+tu umieszczamy plik *.jar
+c:\Documents and Settings\aa\workspace_juno\MVC\WebContent\WEB-INF\lib\
+
+
+
+
+ 

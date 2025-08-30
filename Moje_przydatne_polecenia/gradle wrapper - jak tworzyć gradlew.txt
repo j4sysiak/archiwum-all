@@ -1,0 +1,31 @@
+$ ls -ltr | grep gradlew*
+total 0
+
+
+Jacek@BERLIN MINGW64 ~/Documents/JAVA/SpringBoot/dockerProjects/ktor-docker-multistage-build (master)
+$ gradle wrapper --gradle-version=7.3.3
+
+BUILD SUCCESSFUL in 23s
+1 actionable task: 1 executed
+
+Jacek@BERLIN MINGW64 ~/Documents/JAVA/SpringBoot/dockerProjects/ktor-docker-multistage-build (master)
+$ ls -ltr | grep gradlew*
+total 2
+-rwxr-xr-x 1 Jacek 197609 8047 Sep 30 06:03 gradlew
+-rw-r--r-- 1 Jacek 197609 2763 Sep 30 06:03 gradlew.bat
+
+ 
+ $ gradle -version                                                                                    
+
+------------------------------------------------------------         
+Gradle 7.3.3                                                         
+------------------------------------------------------------         
+                                                                     
+Build time:   2021-12-22 12:37:54 UTC                                
+Revision:     6f556c80f945dc54b50e0be633da6c62dbe8dc71               
+                                                                     
+Kotlin:       1.5.31                                                 
+Groovy:       3.0.9                                                  
+Ant:          Apache Ant(TM) version 1.10.11 compiled on July 10 2021
+JVM:          1.8.0_322 (Amazon.com Inc. 25.322-b06)                 
+OS:           Windows 10 10.0 amd64 

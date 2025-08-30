@@ -1,0 +1,338 @@
+////////////////////////////////////
+
+
+login: root
+hasło: root
+
+login: jacek
+hasło: jacek
+
+
+
+To już robisz po wszystkich instalacjach lokalnych: ubuntu / docker / nexus / jenkins
+
+Aplikacje do testowania: 
+C:\Users\Jacek\Documents\JAVA\SpringBoot\Jenkins\simple-app   git: https://github.com/j4sysiak/simple-app
+c:\Users\Jacek\Documents\GitHub\test-sample-maven-project     git: https://github.com/j4sysiak/test-sample-maven-project
+c:\Users\Jacek\Documents\GitHub\sample-maven-project          git: https://github.com/j4sysiak/sample-maven-project
+c:\Users\Jacek\Documents\GitHub\simple-app-jenkins            git: https://github.com/j4sysiak/simple-app-jenkins
+
+
+
+1. Odpalasz Ubuntu 20.04 LTS  (z wsl2 windowsa)     jacek/jacek
+
+2. Odpalasz dockera z Ubuntu:  
+root@BERLIN:~# sudo dockerd
+root@BERLIN:~# docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED        STATUS          PORTS                                       NAMES
+53af593a1c94   sonatype/nexus3   "/opt/sonatype/nexus…"   2 months ago   Up 34 minutes   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp   jacek_nexus_1
+
+3. Odpalasz Nexus'a z Ubuntu (a tak naprawdę z Dokera na Ubuntu):   powinien się sam uruchomić ze startem dockera
+http://localhost:8081/#browse/browse  admin / admin
+
+4. Odpalasz Jenkinsa z Ubuntu:
+root@BERLIN:~# sudo service jenkins start / stop  / http://localhost:8080  admin / admin  (czekaj z 5 min aż się to gówno uruchomi ...)
+ * Starting Jenkins Automation Server jenkins                                                                                                                                                         Correct java version found
+Setting up max open files limit to 8192
+
+http://localhost:8080   admin / admin
+
+
+
+
+
+
+-----------------------------------------------------------------
+
+
+
+------------------  on Ubuntu  --------------jacek/jacek----------------------------------
+--------- docker - nexus - jenkins  --------------------
+
+to już robisz po wszystkich instalacjach lokalnych: docker / nexus / jenkins
+aplikacja do testowania: C:\Users\Jacek\Documents\JAVA\SpringBoot\Jenkins\simple-app
+git: https://github.com/j4sysiak/Jenkins/tree/master/simple-app
+
+uruchamiasz Ubuntu 20.04 LTS  (z wsl2 windowsa)
+uruchamiasz dockera z Ubuntu:  sudo dockerd
+jacek@BERLIN:~$ sudo docker ps
+[sudo] password for jacek:
+CONTAINER ID   IMAGE             COMMAND                  CREATED      STATUS          PORTS                                       NAMES
+53af593a1c94   sonatype/nexus3   "/opt/sonatype/nexus…"   7 days ago   Up 38 seconds   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp   jacek_nexus_1
+odpalasz nexusa w przeglądarce  (po 5 min) http://localhost:8081/#browse/browse  admin/admin
+uruchamiasz Jenkinsa z Ubuntu: sudo service jenkins start  
+sudo service jenkins status
+odpalasz w przeglądrce http://localhost:8080/#browse/welcome   admin / admin
+
+
+odpalasz nexusa z Ubuntu:   powinien się sam uruchomić ze startem dockera
+docker ps
+CONTAINER ID   IMAGE             COMMAND                  CREATED      STATUS         PORTS                                       NAMES
+53af593a1c94   sonatype/nexus3   "/opt/sonatype/nexus…"   6 days ago   Up 6 minutes   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp   jacek_nexus_1
+odpalenie: http://localhost:8081  admin/admin
+
+
+------------------  on Ubuntu Maven bez Dockera ------------------------------------------------------
+nexus, jenkins bez Dockera 
+
+to już robisz po wszystkich instalacjach lokalnych: docker / nexus / jenkins
+aplikacja do testowania: /opt/sample-maven-project
+git: https://github.com/gouthamchilakala/sample-maven-project
+https://www.youtube.com/watch?v=yZFvJEygn_g
+c:\Users\Jacek\Documents\JAVA\Moje_przydatne_polecenia\Jenkins Nexus Integration.txt
+
+uruchamiasz Ubuntu 20.04 LTS  (z wsl2 windowsa)
+uruchamiasz dockera z Ubuntu:  sudo dockerd
+jacek@BERLIN:~$ sudo docker ps
+[sudo] password for jacek:
+CONTAINER ID   IMAGE             COMMAND                  CREATED      STATUS          PORTS                                       NAMES
+53af593a1c94   sonatype/nexus3   "/opt/sonatype/nexus…"   7 days ago   Up 38 seconds   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp   jacek_nexus_1
+odpalasz nexusa w przeglądarce  (po 5 min) http://localhost:8081/#browse/browse  admin/admin
+
+uruchamiasz Jenkinsa z Ubuntu: sudo service jenkins start  
+sudo service jenkins status
+odpalasz w przeglądrce http://localhost:8080/#browse/welcome   admin / admin
+
+
+ 
+
+
+running Jenkins as a docker Container:
+https://www.jenkins.io/doc/book/installing/docker/
+
+------------------------------------------------------------------
+
+https://www.youtube.com/watch?v=V1VOrnG93Ew&list=PLJwvtUqYDmA4f4yMuX-BRGoN-4tzdgaPe&index=6
+
+
+------------------------   installing Jenkins
+ 
+https://www.coachdevops.com/2020/04/install-jenkins-ubuntu-1804-setup.html
+
+
+sudo apt update
+
+sudo apt install default-jdk -y
+
+jacek@BERLIN:~$ java -version
+openjdk version "17.0.4" 2022-07-19
+OpenJDK Runtime Environment (build 17.0.4+8-Ubuntu-120.04)
+OpenJDK 64-Bit Server VM (build 17.0.4+8-Ubuntu-120.04, mixed mode, sharing)
+
+
+sudo apt install maven -y
+
+Jenkins Setup
+Add Repository key to the system
+wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+
+
+Append debian package repo address to the system
+
+echo deb http://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
+
+
+Update Ubuntu package
+sudo apt update
+
+
+Install Jenkins
+sudo apt install jenkins -y
+
+To check if Jenkins is installed and running, run the following command: 
+sudo jenkins status
+2022-11-13 06:44:44.636+0000 [id=51]    INFO    hudson.model.AsyncPeriodicWork#lambda$doRun$1: Finished Download metadata. 1,378 ms
+2022-11-13 06:44:44.745+0000 [id=25]    INFO    hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+
+sudo service jenkins status
+sudo service jenkins start
+2022-11-13 07:59:50.146+0000 [id=1]     INFO    winstone.Logger#logInternal: Beginning extraction from war file
+2022-11-13 07:59:50.647+0000 [id=1]     WARNING o.e.j.s.handler.ContextHandler#setContextPath: Empty contextPath
+2022-11-13 07:59:50.931+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: jetty-10.0.11; built: 2022-06-21T21:12:44.640Z; git: d988aa016e0bb2de6fba84c1659049c72eae3e32; jvm 17.0.4+8-Ubuntu-120.04
+2022-11-13 08:00:00.799+0000 [id=1]     INFO    o.e.j.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2022-11-13 08:00:01.346+0000 [id=1]     INFO    o.e.j.s.s.DefaultSessionIdManager#doStart: Session workerName=node0
+2022-11-13 08:00:07.826+0000 [id=1]     INFO    hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/lib/jenkins found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2022-11-13 08:00:09.829+0000 [id=1]     INFO    o.e.j.s.handler.ContextHandler#doStart: Started w.@9573b3b{Jenkins v2.361.3,/,file:///var/cache/jenkins/war/,AVAILABLE}{/var/cache/jenkins/war}
+2022-11-13 08:00:10.156+0000 [id=1]     INFO    o.e.j.server.AbstractConnector#doStart: Started ServerConnector@7e9a5fbe{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2022-11-13 08:00:11.141+0000 [id=1]     INFO    org.eclipse.jetty.server.Server#doStart: Started Server@12028586{STARTING}[10.0.11,sto=0] @29373ms
+2022-11-13 08:00:11.143+0000 [id=26]    INFO    winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+
+instalacja w : /var/lib/jenkins
+sudo service jenkins status
+sudo service jenkins start
+sudo service jenkins stop
+sudo service jenkins restart
+
+
+Odblokuj Jenkinsa
+Aby zapewnić, że Jenkins jest bezpiecznie uruchomiony przez administratora, hasło zostało zapisane do pliku logów 
+(nie masz pewności, gdzie go znaleźć?) oraz w pliku na serwerze:
+
+/var/lib/jenkins/secrets/initialAdminPassword
+
+root@BERLIN:~# cat /var/lib/jenkins/secrets/initialAdminPassword
+97bddad5f8374cb39b860da589c0576f
+root@BERLIN:~#
+
+uruchamianie (po konfiguracji)
+http://localhost:8080/
+
+admin / admin
+
+uruchamianie (po konfiguracji)
+http://localhost:8080/jenkins
+
+
+
+
+
+
+-----------------------  installing Maven on Ubuntu  (bez Dockera):
+jacek@BERLIN:~$ sudo docker ps
+[sudo] password for jacek:
+CONTAINER ID   IMAGE             COMMAND                  CREATED      STATUS          PORTS                                       NAMES
+53af593a1c94   sonatype/nexus3   "/opt/sonatype/nexus…"   7 days ago   Up 38 seconds   0.0.0.0:8081->8081/tcp, :::8081->8081/tcp   jacek_nexus_1
+odpalasz nexusa w przeglądarce  (po 5 min) http://localhost:8081/#browse/browse  admin/admin
+
+
+najpierw instalujemy Maven 3.8.6.
+c:\Users\Jacek\Documents\JAVA\Moje_przydatne_polecenia\Maven install on Ubuntu.txt
+
+potem połaczenie Mavena z Jenkinsem:
+jacek@BERLIN:/opt$ su - root
+Password: root
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.10.102.1-microsoft-standard-WSL2 x86_64)
+root@BERLIN:~# cd /opt
+root@BERLIN:/opt# ls
+apache-maven-3.8.6  containerd  maven  sample-maven-project
+root@BERLIN:/opt# id
+uid=0(root) gid=0(root) groups=0(root)
+
+tworzymy plik settle.xml w /root/.m2
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+
+  <!-- servers
+   | This is a list of authentication profiles, keyed by the server-id used within the system.
+   | Authentication profiles can be used whenever maven must make a connection to a remote server.
+   |-->
+  <servers>
+        <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>admin</password>
+    </server>
+  </servers>
+
+  <mirrors>
+    <mirror>
+          <id>central</id>
+          <name>central</name>
+          <url>http://localhost:8081/repository/maven-public/</url>
+          <mirrorOf>*</mirrorOf>
+    </mirror>
+        <!--
+        <mirror>
+          <id>maven-default-http-blocker</id>
+      <mirrorOf>external:http:*</mirrorOf>
+      <name>Pseudo repository to mirror external repositories initially using HTTP.</name>
+      <url>http://0.0.0.0/</url>
+      <blocked>true</blocked>
+    </mirror>-->
+  </mirrors>
+
+</settings>
+
+
+
+to dodajemy do pom.xml:
+
+    <!-- NEXUS ustawienia settle.xml z pliku settle.xml w lokalizacji /root/.m2 -->
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>maven-releases</name>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>maven-snapshots</name>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+	
+	
+root@BERLIN:/opt/sample-maven-project# pwd
+/opt/sample-maven-project
+root@BERLIN:/opt/sample-maven-project# ls
+pom.xml  src  target
+
+odpalamy:
+mvn clean compile
+mvn package
+mvn deploy
+
+w zależności, czy w pom mamy release, czy SNAPSHOT (musi być z dużych liter):
+to odłoży nam się wersja w Nexusie:
+
+dla: <version>1.2-release</version>
+http://localhost:8081/#browse/browse:maven-releases
+
+
+
+dla:
+<version>1.3-SNAPSHOT</version>
+http://localhost:8081/#browse/browse:maven-snapshots
+
+	
+	
+	
+
+
+
+
+------------------------ jenkins-nexus-integration
+
+https://www.youtube.com/watch?v=DA_4D-no004&list=PLJwvtUqYDmA4f4yMuX-BRGoN-4tzdgaPe&index=15&t=6s
+
+
+cidevops.com/2018/06/jenkins-nexus-integration-how-to.html
+
+
+
+
+
+
+
+
+
+////////////////////////////////////
+
+
+login: root
+hasło: root
+
+login: jacek
+hasło: jacek
+
+Welcome to Ubuntu 20.04 LTS (GNU/Linux 4.4.0-19041-Microsoft x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Oct 15 06:42:01 CEST 2022
+
+  System load:    0.52      Users logged in:        0
+  Usage of /home: unknown   IPv4 address for eth2:  192.168.56.1
+  Memory usage:   79%       IPv4 address for eth3:  172.30.192.1
+  Swap usage:     8%        IPv4 address for wifi0: 192.168.1.104
+  Processes:      7         IPv6 address for wifi0: 3ffe:501:ffff:101::6
+
+0 updates can be installed immediately.
+0 of these updates are security updates.
+

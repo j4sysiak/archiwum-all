@@ -1,0 +1,168 @@
+git add -A
+git commit -a -m"28-01-2023 18:48"
+git push -u origin master
+git status
+
+
+
+===============================przyk³ad 1==============================
+
+krok w GitHub:
+tworzymy jakieœ repo w Github np Javascript: j4sysiak/Javascript
+
+kroki lokalnie:
+
+w git (lokalnie) tworzymy nowe repo np Javascript
+
+$ cd /C/Users/Jacek/Documents/JAVA/SpringBoot/
+$ git clone https://github.com/j4sysiak/Javascript.git
+$ cd Javascript
+$ mkdir tutorials-pl-node
+$ cd tutorials-pl-node
+$ vi test.js
+
+
+w InteliJ:
+Otwieramy projekt: Open Project
+wskazujemy œcieœkê: /C/Users/Jacek/Documents/JAVA/SpringBoot/Javascript/tutorials-pl-node
+
+
+robimy jakœ zmianê na pliku test.js
+
+i potem ... z cmd lub w InteliJ korzystaj¹c z commit/push  (nic wiêcej nie trzeba robiæ)
+
+lub z lokalizacji /C/Users/Jacek/Documents/JAVA/SpringBoot/Javascript 
+git add -A
+git commit -m"14-01-2024 15:39"
+git push -u origin master
+git status
+
+
+
+
+
+
+===============================przyk³ad 2==============================
+Dodawanie nowego projektu Security:
+
+Jacek@BERLIN MINGW64 cd /C/Users/Jacek/Documents/JAVA/SpringBoot/
+
+mkdir Security
+cd /C/Users/Jacek/Documents/JAVA/SpringBoot/Security
+
+Jacek@BERLIN MINGW64 /C/Users/Jacek/Documents/JAVA/SpringBoot/Security
+$ git init
+Initialized empty Git repository in C:/Users/Jacek/Documents/JAVA/SpringBoot/Security/.git/
+
+dodajey jakiœ plik
+
+Jacek@BERLIN MINGW64 /C/Users/Jacek/Documents/JAVA/SpringBoot/Security (master)
+$ git add -A
+
+Jacek@BERLIN MINGW64 /C/Users/Jacek/Documents/JAVA/SpringBoot/Security (master)
+$ git commit -m"25-09-2022 08:54"
+[master 971b6bd] 20-06-2022 06:24
+ 5 files changed, 50 insertions(+), 1 deletion(-)
+ create mode 100644 springsecurity-simple-factory-auth/.idea/compiler.xml
+ create mode 100644 springsecurity-simple-factory-auth/.idea/encodings.xml
+ create mode 100644 springsecurity-simple-factory-auth/.idea/jarRepositories.xml
+ create mode 100644 springsecurity-simple-factory-auth/.idea/jpa-buddy.xml
+
+git push -u origin master
+git status
+
+
+
+
+
+===============================przyk³ad 3==============================
+Tworzymy nowe Repozytorium w Github:  j4sysiak/Security
+
+Jacek@BERLIN MINGW64 /C/Users/Jacek/Documents/JAVA/SpringBoot/Mail (master)
+$ git remote add origin https://github.com/j4sysiak/Security.git
+
+Jacek@BERLIN MINGW64 /C/Users/Jacek/Documents/JAVA/SpringBoot/Security (master)
+$ git branch -M master
+
+Jacek@BERLIN MINGW64 /C/Users/Jacek/Documents/JAVA/SpringBoot/Security (master)
+$ git push -u origin master
+Enumerating objects: 60, done.
+Counting objects: 100% (60/60), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (44/44), done.
+Writing objects: 100% (60/60), 14.61 KiB | 787.00 KiB/s, done.
+Total 60 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), done.
+To https://github.com/j4sysiak/Security.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+
+
+tworzymy nowy projekt w InteliJ: springsecurity-simple-factory-auth
+
+otwieramy projekt w Intelij, robimy jak¹œ zmianê i potem commit/push
+
+wszystkie zmiany powinny byæ ju¿ widoczne w https://github.com/j4sysiak/Security
+
+
+
+
+
+===============================przyk³ad 4==============================
+najpierw w https://github.com/j4sysiak
+tworzymy repozytorium:  openshift
+
+potem lokalnie:
+
+$ git clone https://github.com/j4sysiak/openshift.git
+
+$ cd openshift/
+
+
+ wrzucamy coœ do tego katalogu:  pom.xml  src/
+
+$ ls
+pom.xml  src/
+
+
+$ git add *          (lub przy usuwaniu git rm -r *)
+
+$ git commit -m "first commit"
+
+$ git push -u origin master
+
+
+https://github.com/j4sysiak
+
+
+
+-----------------   tworzenie gita z eclipsa:  https://www.youtube.com/watch?v=r5C6yXNaSGo
+
+
+
+teraz mam 2 repozytoria git lokalne i zdalne:
+
+(obs³uga w Eclipse) c:\Users\Jacek\git\             co odpowiada:  https://github.com/j4sysiak/maven.git
+                    c:\Users\Jacek\git\openshift    co odpowiada:  https://github.com/j4sysiak/openshift.git
+
+
+
+
+--------------------  tworzenie (clonowanie) repozytorium z jakiegoœ gita (np. Heroku)
+
+Jacek@Montreal MINGW64 /C/Users/Jacek
+$ git clone https://github.com/heroku/template-java-spring-hibernate.git
+Cloning into 'template-java-spring-hibernate'...
+remote: Enumerating objects: 290, done.
+Receremote: Total 290 (delta 0), reused 0 (delta 0), pack-reused 290
+Receiving objects: 100% (290/290), 40.11 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (117/117), done.
+
+Jacek@Montreal MINGW64 /C/Users/Jacek
+$ cd template-java-spring-hibernate/
+
+Jacek@Montreal MINGW64 /C/Users/Jacek/template-java-spring-hibernate (master)
+
+
+

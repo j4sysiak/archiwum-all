@@ -1,0 +1,28 @@
+Oba usuwają wiersz z tabeli – TRUNCATE wszystkie, DELETE dowolnie wybrane przez użytkownika. Główna i najważniejsza różnica to, 
+że TRUNCATE jest szybszy od DELETE, a zawdzięcza to temu, że nie zapisuje każdej operacji usunięcia w logach. 
+Natomiast DELETE loguje wszystkie zmiany, przez co jest wolniejszy.
+TRUNCATE TABLE Users -- usuwamy wszystkie wpisy z tabeli Users
+
+DROP TABLE Users -- usuwamy tabelę Users
+
+Ważne jest także to, że polecenie TRUNCATE działa o wiele szybciej od DELETE. Wynika to z mechanizmu działania tych poleceń.
+
+DELETE usuwa wiersze jeden po drugim i tworzy wpis w dzienniku transakcji dla każdego usuniętego wpisu
+TRUNCATE usuwa strony przechowujące dane i tworzy wpis jedynie dla tych stron
+DELETE wywołuje triggery, TRUNCATE nie
+TRUNCATE resetuje opcję AUTOINCREMENT na danej kolumnie do wartości początkowych
+w poleceniu DELETE można użyć klauzuli WHERE by usunąć jedynie pożądane dane
+TRUNCATE usuwa wszystkie dane, brak możliwości filtrowania
+dane usunięte poleceniem DELETE można przywrócić, zmiany spowodowane poleceniem TRUNCATE są nieodwracalne
+
+===========================================================
+
+
+CREATE USER 'jacek'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT PRIVILEGE ON database.animalsdb TO 'jacek'@'localhost';
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'jacek'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'jacek'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'jacek'@'localhost';
+
+mysql -u jacek -p

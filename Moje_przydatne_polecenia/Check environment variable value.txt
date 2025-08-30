@@ -1,0 +1,8 @@
+
+LINUX:
+Check environment variable value
+echo $JAVA_HOME
+c:\Program Files\Java\jdk1.8.0_151\
+
+Adding to PATH
+export PATH=/opt/apache-maven-3.5.2/bin:$PATH

@@ -1,0 +1,5 @@
+rmdir /s /q DevOpsrmdir /s /q DevOps
+
+Polecenie które usunie katalog wraz z zawartością będzie wyglądało następująco:
+
+rm -rf nazwa_katalogu

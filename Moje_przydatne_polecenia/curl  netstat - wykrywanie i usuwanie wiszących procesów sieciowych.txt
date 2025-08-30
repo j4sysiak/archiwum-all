@@ -1,0 +1,28 @@
+ 
+$ curl --head localhost:8080
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0    12    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 12
+Date: Sat, 02 Sep 2017 14:44:29 GMT
+
+
+
+ZnajdŸ proces na porcie:
+netstat -ano | findstr "3000"    z ReactJS
+lub
+netstat -a -f -o | find "3000"    z ReactJS
+
+
+Zabij proces za pomoc¹ identyfikatora procesu:
+Mo¿emy u¿yæ poni¿szego polecenia, aby zabiæ proces przy u¿yciu id procesu (pid).
+
+taskkill /PID  processId
+Przyk³ad:
+Zabij proces za pomoc¹ pid 1234.
+
+przyk³ad:
+C:\Users\Jacek>taskkill /PID 10700 /F
+

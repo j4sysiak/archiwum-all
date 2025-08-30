@@ -1,0 +1,53 @@
+=========================2============================
+public class Test {
+ 
+    private String brand;
+    private boolean empty;
+    
+     public static void main(String[] args) {
+
+         Test t = new Test();
+         System.out.println(t.empty);
+         System.out.println(t.brand);
+ 
+        System.out.println("ssssssssssss");
+    }
+
+ }
+ 
+ ===========================7===========================
+ 
+package com.udayan.oca.employee;
+
+//E
+//import com.udayan.oca.aquarium.Water;
+//import com.udayan.oca.aquarium.jellies.Water;
+
+//D
+//import com.udayan.oca.aquarium.*;
+//import com.udayan.oca.aquarium.jellies.*;
+ 
+//A
+//import com.udayan.oca.aquarium.Water;
+
+//B
+//import com.udayan.oca.aquarium.Water;
+//import com.udayan.oca.aquarium.jellies.*;
+
+//C
+//import com.udayan.oca.aquarium.*;
+//import com.udayan.oca.aquarium.jellies.Water;
+
+
+public class WaterFilter {
+
+    public static void main(String ... h) {
+        Water w;
+    }
+
+
+}
+
+
+
+===========================================================

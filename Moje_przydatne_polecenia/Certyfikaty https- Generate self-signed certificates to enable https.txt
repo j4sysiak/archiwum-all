@@ -1,0 +1,4 @@
+https://www.youtube.com/watch?v=718_kHDzncw&list=PLCUUjoPsbNH9iCPvYtCdCjlnsbcEOXaJ2&index=1           time: 4:05''
+
+
+keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=server" -alias server -ext "SAN:c=DNS:localhost.IP127.0.0.1" -keystore conf/server.keystore

@@ -1,0 +1,7 @@
+﻿https://www.thewindowsclub.com/what-is-vmmem-process
+
+C:\Windows\System32>wsl --shutdown
+
+jak ubijesz Vemmen to trzeba zrestartować (uruchomić ponownie)  docker desktop.
+
+Restart-Service LxssManager

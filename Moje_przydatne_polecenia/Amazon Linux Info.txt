@@ -1,0 +1,95 @@
+user:  ubuntu
+
+ubuntu@ec2-3-218-248-215.compute-1.amazonaws.com
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCQQaKXVOw1TAl2WA6r1owp2R+q5WZCJ8v1bTJOJoZD0Mr4pUVBETFN4x1Zrh/BEq/hAL14jBYqoD5oPTztQjj+TLq6UZHw4Cg/nL3niSQspyPVHCRduhjv5lx/83AuUSKHU2Pm5H9LwzHjfspFrmuJbInOrV7yA2vQYxwuzfsmlyFaZhAmyG4l+5HRJKnatWgwGbBs5W63ijNd+iGNv5NkZ/RiXVfIzlAbB0cpJRu1fF4LzvDa+orhbfHOXqKGBGmR/nC/diTyXX2Bh+4EHa/s1QMbQg5Uyg0e3RoaRtC4IqtJpmjS2kqzqtO9EZbPzytvXtNH6KdWuND+UfBdeUub jacekUbuntu
+
+
+uruchomienie kontenera jeżeli mamy już image:
+ubuntu@ip-172-31-1-213:~$ docker images
+REPOSITORY        TAG         IMAGE ID       CREATED      SIZE
+jenkins/jenkins   lts-jdk11   3875608bd391   6 days ago   468MB
+
+root@ip-172-31-1-213:~# docker run -d -p 80:8080 3875608bd391
+7672b133f590666520473c548c5432c8912fe525feb8f53079a77d2d69799e34
+root@ip-172-31-1-213:~# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                              NAMES
+7672b133f590   3875608bd391   "/usr/bin/tini -- /u…"   6 seconds ago   Up 5 seconds   50000/tcp, 0.0.0.0:80->8080/tcp, :::80->8080/tcp   romantic_gould
+
+hasło:
+docker exec -it 7672b133f590 bash
+
+: cd /var/jenkins_home/secrets
+
+: cat initialAdminPassword
+
+
+
+
+nie będzie pamiętał, co było po restarcie:
+docker run --rm --name jenkins -p 80:8080 -p 50000:50000 jenkins/jenkins:2.303.1-jdk8
+
+wersja, że będzie pamiętał co było:
+docker run --rm --name jenkins -p 80:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:2.303.2-jdk11         
+http://ec2-3-218-248-215.compute-1.amazonaws.com/
+
+https://www.youtube.com/watch?v=cdqbPfGkUu4
+Docker Root Dir: /var/lib/docker
+docker run -d -p 80:5000 training/webapp:latest python app.py
+root@ip-172-31-1-213:~# curl http://localhost
+
+docker run -d -p 80:80 --name nginx nginx 
+
+i odpalamy: http://ec2-3-218-248-215.compute-1.amazonaws.com   - chodzi
+			https://ec2-3-218-248-215.compute-1.amazonaws.com  - nie chodzi
+
+
+How to get Jenkins init password:
+Copy the running containerID
+
+root@ip-172-31-1-213:~# docker ps
+CONTAINER ID   IMAGE                          COMMAND                  CREATED             STATUS             PORTS                                                                                      NAMES
+cf53bafb2628   jenkins/jenkins:2.303.1-jdk8   "/sbin/tini -- /usr/…"   4 minutes ago       Up 4 minutes       0.0.0.0:50000->50000/tcp, :::50000->50000/tcp, 0.0.0.0:8000->8080/tcp, :::8000->8080/tcp   jenkins
+
+: docker exec -it cf53bafb2628 bash
+
+: cd /var/jenkins_home/secrets
+
+: cat initialAdminPassword
+
+----------------------------------------
+root@ip-172-31-1-213:~# docker ps -a
+CONTAINER ID   IMAGE                       COMMAND                  CREATED         STATUS                        PORTS     NAMES
+baca2916bf99   jenkins/jenkins:lts-jdk11   "/usr/bin/tini -- /u…"   25 hours ago    Exited (143) 21 minutes ago             scripts_jenkins-master_1
+
+docker stop baca2916bf99
+docker start baca2916bf99
+
+root@ip-172-31-1-213:~# docker ps
+CONTAINER ID   IMAGE                       COMMAND                  CREATED        STATUS         PORTS                                              NAMES
+baca2916bf99   jenkins/jenkins:lts-jdk11   "/usr/bin/tini -- /u…"   25 hours ago   Up 3 seconds   50000/tcp, 0.0.0.0:80->8080/tcp, :::80->8080/tcp   scripts_jenkins-master_1
+
+
+
+---------------------------------
+removing images and containers
+
+https://www.freecodecamp.org/news/how-to-remove-images-in-docker/
+https://docs.docker.com/language/nodejs/run-containers/
+
+
+
+----------------   logi
+docker exec -it cf53bafb2628 bash
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /var/jenkins_home/.npm/_logs/2023-02-05T18_50_42_603Z-debug-0.log
+[Pipeline] }
+
+
+
+
+
+
+
+
+

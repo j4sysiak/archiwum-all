@@ -1,0 +1,34 @@
+https://www.youtube.com/watch?v=718_kHDzncw&list=PLCUUjoPsbNH9iCPvYtCdCjlnsbcEOXaJ2&index=1
+
+
+https://www.youtube.com/watch?v=718_kHDzncw&list=PLCUUjoPsbNH9iCPvYtCdCjlnsbcEOXaJ2&index=1           time: 4:05''
+
+
+c:\devtools\keycloak-18.0.1\keytool -genkeypair -storepass password -storetype PKCS12 -keyalg RSA -keysize 2048 -dname "CN=server" -alias server -ext "SAN:c=DNS:localhost.IP127.0.0.1" -keystore conf/server.keystore
+
+
+
+
+
+
+
+c:\devtools\keycloak-18.0.1\bin>kc.bat start-dev
+2022-07-10 12:42:58,035 INFO  [org.keycloak.quarkus.runtime.hostname.DefaultHostnameProvider] (main) Hostname settings: FrontEnd: <request>, Strict HTTPS: false, Path: <request>, Strict BackChannel: false, Admin: <request>, Port: -1, Proxied: false
+2022-07-10 12:43:02,077 WARN  [org.infinispan.PERSISTENCE] (keycloak-cache-init) ISPN000554: jboss-marshalling is deprecated and planned for removal
+2022-07-10 12:43:02,533 WARN  [org.infinispan.CONFIG] (keycloak-cache-init) ISPN000569: Unable to persist Infinispan internal caches as no global state enabled
+2022-07-10 12:43:02,652 INFO  [org.infinispan.CONTAINER] (keycloak-cache-init) ISPN000556: Starting user marshaller 'org.infinispan.jboss.marshalling.core.JBossUserMarshaller'
+2022-07-10 12:43:03,324 INFO  [org.infinispan.CONTAINER] (keycloak-cache-init) ISPN000128: Infinispan version: Infinispan 'Triskaidekaphobia' 13.0.9.Final
+2022-07-10 12:43:04,201 INFO  [org.keycloak.connections.infinispan.DefaultInfinispanConnectionProviderFactory] (main) Node name: node_472646, Site name: null
+2022-07-10 12:43:05,904 INFO  [io.quarkus] (main) Keycloak 18.0.1 on JVM (powered by Quarkus 2.7.5.Final) started in 17.135s. Listening on: http://0.0.0.0:8080 and https://0.0.0.0:8443
+2022-07-10 12:43:05,918 INFO  [io.quarkus] (main) Profile dev activated.
+2022-07-10 12:43:05,920 INFO  [io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm, jdbc-h2, jdbc-mariadb, jdbc-mssql, jdbc-mysql, jdbc-oracle, jdbc-postgresql, keycloak, narayana-jta, reactive-routes, resteasy, resteasy-jackson, smallrye-context-propagation, smallrye-health, smallrye-metrics, vault, vertx]
+2022-07-10 12:43:05,952 WARN  [org.keycloak.quarkus.runtime.KeycloakMain] (main) Running the server in development mode. DO NOT use this configuration in production.
+
+
+https://localhost:8443/
+
+admin / admin
+
+
+lokalny mail SMTP:  c:\devtools\MailHog_windows_amd64.exe
+http://localhost:8025/

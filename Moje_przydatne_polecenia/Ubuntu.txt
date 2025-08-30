@@ -1,0 +1,286 @@
+
+
+login: root
+hasło: root
+
+login: jacek
+hasło: jacek
+
+Welcome to Ubuntu 20.04 LTS (GNU/Linux 4.4.0-19041-Microsoft x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Oct 15 06:42:01 CEST 2022
+
+  System load:    0.52      Users logged in:        0
+  Usage of /home: unknown   IPv4 address for eth2:  192.168.56.1
+  Memory usage:   79%       IPv4 address for eth3:  172.30.192.1
+  Swap usage:     8%        IPv4 address for wifi0: 192.168.1.104
+  Processes:      7         IPv6 address for wifi0: 3ffe:501:ffff:101::6
+
+0 updates can be installed immediately.
+0 of these updates are security updates.
+
+==========================================================================================
+
+PS C:\Users\Jacek> wsl -d Ubuntu-20.04 -u root
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 4.4.0-19041-Microsoft x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Oct 15 07:37:55 CEST 2022
+
+  System load:    0.52      Users logged in:        0
+  Usage of /home: unknown   IPv4 address for eth2:  192.168.56.1
+  Memory usage:   54%       IPv4 address for eth3:  192.168.16.1
+  Swap usage:     0%        IPv4 address for wifi0: 192.168.1.104
+  Processes:      9         IPv6 address for wifi0: 3ffe:501:ffff:101::6
+
+321 updates can be installed immediately.
+216 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+
+*** System restart required ***
+
+This message is shown once a day. To disable it please create the
+/root/.hushlogin file.
+root@BERLIN:/mnt/c/Users/Jacek# passwd root
+New password:
+Retype new password:
+passwd: password updated successfully
+root@BERLIN:/mnt/c/Users/Jacek#
+
+==============================================
+https://learn.microsoft.com/en-us/windows/wsl/setup/environment#set-up-your-linux-username-and-password
+https://learn.microsoft.com/en-us/windows/wsl/install
+https://www.youtube.com/watch?v=2zO2LKg1n5o&list=PLF5X0J2bZ_k44MMIJvncXgJkzy0KxBGMB&index=30
+
+
+sudo apt update && sudo apt upgrade
+
+How to fix 'System has not been booted with systemd' error?
+The simple answer is to not use the systemctl command. Instead, use the equivalent sysvinit command.
+
+It's not too complicated and both commands have somewhat similar syntax.
+
+This table should help you.
+
+Systemd command	              | Sysvinit command
+------------------------------+---------------------------------
+systemctl start service_name	service service_name start
+systemctl stop service_name	    service service_name stop
+systemctl restart service_name	service service_name restart
+systemctl status service_name	service service_name status
+systemctl enable service_name	chkconfig service_name on
+systemctl disable service_name	chkconfig service_name off
+
+
+
+sudo systemctl status jenkins                sudo jenkins status
+
+
+
+==================   file system ================================
+
+Git can be installed on Windows AND on WSL
+An important consideration: when you enable WSL and install a Linux distribution, you are installing a new file system, 
+separated from the Windows NTFS C:\ drive on your machine. 
+In Linux, drives are not given letters. They are given mount points. 
+The root of your file system / is the mount point of your root partition, or folder, in the case of WSL. 
+Not everything under / is the same drive. For example, on my laptop, 
+I've installed two version of Ubuntu (20.04 and 18.04), as well as Debian. 
+If I open those distributions, select the home directory with the command cd ~, and then enter the command explorer.exe ., 
+Windows File Explorer will open and show me the directory path for that distribution.
+
+Linux distro	Windows Path to access home folder
+Ubuntu 20.04	\\wsl$\Ubuntu-20.04\home\jacek
+
+====================   inatalacja Git =================
+
+Installing Git
+Git comes already installed with most of the Windows Subsystem for Linux distributions, however, you may want to update to the latest version. You also will need to set up your git config file.
+
+To install Git, see the Git Download for Linux site. Each Linux distribution has their own package manager and install command.
+
+For the latest stable Git version in Ubuntu/Debian, enter the command:
+
+Bash
+
+ 
+root@BERLIN:/# sudo apt-get install git
+
+root@BERLIN:/# git --version
+git version 2.25.1
+
+root@BERLIN:/# git config --global user.name "j4sysiak"
+root@BERLIN:/# git config --global user.email "j4sysiak@gmail.com"
+
+
+===================   inatalacja Dockera
+https://docs.docker.com/engine/install/ubuntu/
+
+instalowanie dockera na Ubuntu:
+root@BERLIN:/# sudo apt-get install docker
+root@BERLIN:/# sudo apt-get update && sudo apt-get upgrade
+UWAGA:
+klient dockera musi teraz chodzić i miećwłączone w: "ResourcesWSL Integration" Ubuntu-20.04
+
+jacek@BERLIN:~$ docker --version
+Docker version 20.10.17, build 100c701
+jacek@BERLIN:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+jacek@BERLIN:~$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete
+Digest: sha256:18a657d0cc1c7d0678a3fbea8b7eb4918bba25968d3e1b0adebfa71caddbc346
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+ 
+ 
+w Ubuntu: 
+jacek@BERLIN:~$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+hello-world   latest    feb5d9fea6a5   12 months ago   13.3kB
+
+oraz w Windowsie:
+PS C:\Users\Jacek> docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+hello-world   latest    feb5d9fea6a5   12 months ago   13.3kB
+
+
+--- uruchamianie:
+jacek@BERLIN:~$ sudo service docker start
+jacek@BERLIN:~$ sudo groupadd docker
+jacek@BERLIN:~$ sudo systemctl enable docker.service
+sudo systemctl enable container.service
+
+jacek@BERLIN:~$ sudo service docker stop
+
+ 
+
+https://docs.docker.com/desktop/windows/wsl/
+https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers
+
+Ensure the distribution runs in WSL 2 mode. WSL can run distributions in both v1 or v2 mode.
+
+To check the WSL mode, run (inwindows CMD):
+PS C:\Users\Jacek> wsl.exe -l -v
+  NAME                   STATE           VERSION
+* docker-desktop-data    Running         2
+  Ubuntu-20.04           Running         1
+  docker-desktop         Running         2
+  
+  PS C:\Users\Jacek> 
+  
+PS C:\Users\Jacek> wsl.exe --set-version Ubuntu-20.04 2
+
+To confirm that Docker has been installed, open a WSL distribution (e.g. Ubuntu) and display 
+the version and build number by entering: 
+root@BERLIN:/# docker --version
+Docker version 20.10.17, build 100c701
+
+Test that your installation works correctly by running a simple built-in Docker image using: 
+root@BERLIN:/# docker run hello-world
+root@BERLIN:/# docker run -it ubuntu bash
+
+jacek@BERLIN:~$ docker image ls --all
+REPOSITORY                         TAG                     IMAGE ID       CREATED         SIZE
+mikeimages                         coolest                 9c8d268949bc   5 days ago      197MB
+mongo                              latest                  1cca5cf68239   9 days ago      695MB
+ubuntu                             latest                  216c552ea5ba   10 days ago     77.8MB
+paketobuildpacks/run               base-cnb                320a67ab6606   3 weeks ago     87.8MB
+hello-world                        latest                  feb5d9fea6a5   12 months ago   13.3kB
+myspringapp                        0.0.1-SNAPSHOT          38a7911b8caf   42 years ago    280MB
+<none>                             <none>                  eaea30b69ac1   42 years ago    274MB
+paketobuildpacks/builder           base                    de7c03469c46   42 years ago    1.24GB
+gcr.io/paketo-buildpacks/builder   base-platform-api-0.3   de7c03469c46   42 years ago    1.24GB
+
+
+
+
+=================   Install MySQL
+https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-database
+
+Install MySQL
+To install MySQL on WSL (ie. Ubuntu):
+
+Open your WSL terminal (ie. Ubuntu).
+Update your Ubuntu packages: sudo apt update
+Once the packages have updated, install MySQL with: sudo apt install mysql-server
+Confirm installation and get the version number: mysql --version
+You may also want to run the included security script. This changes some of the less secure default options for things like remote root logins and sample users. To run the security script:
+
+Start a MySQL server: sudo /etc/init.d/mysql start
+Start the security script prompts: sudo mysql_secure_installation
+The first prompt will ask whether you’d like to set up the Validate Password Plugin, which can be used to test the strength of your MySQL password. You will then set a password for the MySQL root user, decide whether or not to remove anonymous users, decide whether to allow the root user to login both locally and remotely, decide whether to remove the test database, and, lastly, decide whether to reload the privilege tables immediately.
+To open the MySQL prompt, enter: sudo mysql
+
+To see what databases you have available, in the MySQL prompt, enter: SHOW DATABASES;
+
+To create a new database, enter: CREATE DATABASE database_name;
+
+To delete a database, enter: DROP DATABASE database_name;
+
+For more about working with MySQL databases, see the MySQL docs.
+
+To work with with MySQL databases in VS Code, try the MySQL extension.
+
+------  zmiana hasła na roota:
+
+jacek@BERLIN:~$ sudo mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.30-0ubuntu0.20.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+Query OK, 0 rows affected (0.07 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+Spring-Boot uruchamianie z command Line aplikacji (mvn):
+
+1.sposób:
+Jacek@BERLIN MINGW64 /C/Users/Jacek/git/Local_05-spring-boot-properties-demo/05-spring-boot-properties-demo (master)
+$ mvn clean package
+$ mvn spring-boot:run
+
+
+2.sposób:
+$ mvn clean package
+$ mvn package           (rapper mavena, można też użyć:   $ mvn install)
+$ cd  target
+Jacek@BERLIN MINGW64 /C/Users/Jacek/git/Local_05-spring-boot-properties-demo/05-spring-boot-properties-demo/target (master)
+$ java -jar 05-spring-boot-properties-demo-0.0.1-SNAPSHOT.jar
+
+
+
+lub:  https://www.youtube.com/watch?v=Le5YjYNYtZg
+
+
+
+$mvn -v
+Apache Maven 3.8.5 (3599d3414f046de2324203b78ddcf9b5e4388aa0)   
+
+$mvn install       (powstanie jar w targecie)
+cd target
+java -jar rest-test-0.0.1-SNAPSHOT.jar
+
+
+=========================================================
+Setting active profile and config location from command line in spring boot
+https://stackoverflow.com/questions/31038250/setting-active-profile-and-config-location-from-command-line-in-spring-boot
+
+
+There are two different ways you can add/override spring properties on the command line.
+
+Option 1: Java System Properties (VM Arguments)
+It's important that the -D parameters are before your application.jar otherwise they are not recognized.
+
+java -jar -Dspring.profiles.active=prod application.jar
+
+
+Option 2: Program arguments
+java -jar application.jar --spring.profiles.active=prod --spring.config.location=c:\config
+
+
+
+=====================================================================
+
+Spring Boot + Gradle: how to build executable jar
+
+https://stackoverflow.com/questions/46939455/spring-boot-gradle-how-to-build-executable-jar
+
+In Boot 2.x, the bootJar and bootWar tasks are responsible for packaging the application.
+
+The bootJar task is responsible for creating the executable jar file. This is created automatically once the java plugin is applied.
+
+In case the executable jar/war file is not generated run the below gradle task manually.
+
+$./gradlew bootJar
+Similarly, bootWar generates an executable war file and gets created once the war plugin is applied.
+
+We can execute the bootWar task using:
+
+$./gradlew bootWar
+Note that for Spring Boot 2.x, we need to use Gradle 4.0 or later.
+
+=======================================
+jak są problemy;
+
+$ mvn clean install -X
+$ mvn clean package
+
+
+java -jar springboot-api-docker-0.0.1-SNAPSHOT.jar

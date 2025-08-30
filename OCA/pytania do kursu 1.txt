@@ -1,0 +1,1239 @@
+﻿pytania do kursu: https://www.udemy.com/course/oracle-java-se-8-programmer-i-oca1z0-808-practice-exam/
+
+
+===================1
+
+
+package com.udayan.oca;
+
+
+public class Test {
+
+    public static void main(String[] args) {
+
+      String str = " ";
+      str.trim();
+        System.out.println(str.equals("") +" "+ str.isEmpty());
+
+        System.out.println("");
+
+    }
+}
+
+
++++++++++++
+package com.udayan.oca;
+
+public class X {
+    static int i;
+    int j;
+
+    public static void main(String[] args) {
+    X x1 = new X();
+    X x2 = new X();
+
+    x1.i=3;
+    x1.j=4;
+    x2.i=5;
+    x2.j=6;
+        System.out.println(x1.i + " " + x2.i);
+        
+    }
+}
+
+=========================2
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        boolean a = new Boolean(Boolean.valueOf(args[0]));
+        boolean b = new Boolean(args[1]);
+        System.out.println(a);
+        System.out.println(b);
+
+    }
+}
+
+========================== 5
+package com.udayan.oca;
+
+import java.util.ArrayList;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        ArrayList myList = new ArrayList();
+        String myArray;
+
+        try {
+            while (true) {
+                myList.add("My String");
+            }
+        }catch(RuntimeException rte) {
+            System.out.println("RuntimeException");
+        } catch (Exception e ) {
+            System.out.println("Exception");
+        }
+        System.out.println("ssssssssssssssssssssssssssssss");
+
+    }
+}
+
+========================== 10
+package com.udayan.oca;
+
+public class Test {
+    int x;
+    int y;
+
+    public void doStuff(int a, int b) {
+        a=a;
+        b=this.y;
+    }
+
+    public void display() {
+        System.out.println(x+":"+y);
+    }
+
+    public static void main (String[] args) {
+        Test t = new Test();
+        t.x=100;
+        t.y=200;
+
+        Test t2 = new Test();
+        t2.doStuff(t.x, t.y);
+
+        t.display();
+        t2.display();
+
+        System.out.println();
+    }
+}
+
+=========================== 11
+
+package com.udayan.oca;
+
+abstract class Planet {
+    protected void revolve() {}
+    abstract void rotate();
+}
+
+class Earth extends Planet {
+    protected void revolve(){}
+
+    protected void rotate(){}
+}
+
+public class Test {
+
+    public static void main (String[] args) {
+
+
+
+        System.out.println();
+    }
+}
+
+========================== 12
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+        
+        int wd=0;
+        String days[] = {"sun", "mon", "wed", "sat"};
+        
+        for (String s : days) {
+            switch (s) {
+                case "sat":
+                case "sun":
+                    wd=wd-1;
+                    break;
+                case "mon":
+                    wd++;
+                case "wed":
+                    wd = wd+2;
+            }
+        }
+
+        System.out.println(wd);
+    }
+}
+
+++++++++++++++++++++++++++++++++++++++++
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        int x=100;  //103
+        int a=x++;  //100
+        int b=++x;  //102
+        int c=x++;  //102
+
+        int d = (a<b) ? (a<c) ? a : (b<c) ? b : c  : x;
+        
+        System.out.println();
+    }
+
+}
+
+
+
+==========================  13
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        String str1 = "Java";
+        String[] str2 = {"J", "a", "v", "a"};
+        String str3 = "";
+
+        for (String s : str2){
+            str3=str3+s;
+        }
+        
+        boolean b1 = (str1.equals(str3));
+        boolean b3 = (str1==str3);
+
+        System.out.println(""); //3
+    }
+}
+
+========================== 15
+
+package com.udayan.oca;
+
+import java.util.ArrayList;
+
+public class Test {
+
+    public static void main (String[] args)  throws OutOfMemoryError{
+
+        ArrayList<Integer> p = new ArrayList<>();
+        p.add(1);
+        p.add(2);
+        p.add(3);
+        p.add(4);
+        p.add(null);
+        p.remove(1);
+        p.remove(null);
+
+
+
+        System.out.println(""); //3
+    }
+}
+
+
+============================  16
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  throws OutOfMemoryError{
+
+        int x=1, y=0;
+        if (x++ > ++y) {
+            System.out.println(x+":"+y);
+        } else {
+            System.out.println(x+":"+y);
+        }
+
+        System.out.println(""); //3
+    }
+}
+
+
+==========================   17
+
+package com.udayan.oca;
+
+class Product{
+    int id;
+    String name;
+
+    public Product(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+public class Test {
+
+    public static void main (String[] args)     {
+
+        Product p1 = new Product(1,"a");
+        Product p2 = new Product(1,"a");
+        Product p3 = p1;
+
+        boolean b1 = p1==p2;
+        boolean b2=p1.name.equals(p2.name   );
+        System.out.println(""); //3
+    }
+}
+
+========================== 18
+
+package com.udayan.oca;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test {
+    public static void main (String[] args) {
+
+        List colors = new ArrayList();
+
+        colors.add("green");
+        colors.add("blue");
+        colors.add("red");
+        colors.add("yellow");
+        colors.remove(2);
+        colors.add(3, "cyan");
+        System.out.println(colors);
+
+
+        System.out.println("");
+    }
+}
+
+
+========================== 26
+
+	na firmowym laptopie
+
+========================== 27
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        String s = "Java SE 8 1";
+        int len = s.trim().length();
+        System.out.println(len);
+    }
+}
+
+
+====================== 28
+package com.udayan.oca;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        List<String> names = new ArrayList<>();
+        names.add("Robb");
+        names.add("Bran");
+        names.add("Rick");
+        names.add("Bran");
+
+        if (names.remove("Bran")) {
+            names.remove("Jon");
+        }
+        System.out.println(names);
+    }
+}
+
+
+======================29
+
+package com.udayan.oca;
+
+interface I {
+    public void displayI();
+}
+
+class Base {
+    public void displayC2() {
+        System.out.println("Base");
+    }
+}
+
+class Derived extends Base implements I {
+    @Override
+    public void displayI() {
+        System.out.println("Derived");
+    }
+}
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        Derived d = new Derived();
+        I di = (Derived) d;
+
+        //------- 1
+        Base b1 = new Base();
+        b1=  d;
+        b1= (Base) di;
+
+  //      d = (Derived) b1;  //ERROR: Exception in thread "main" java.lang.ClassCastException: com.udayan.oca.Base cannot be cast to com.udayan.oca.Derived
+
+
+        //--------- 2
+        Base b2 = new Derived();
+        b2= d;
+        b2 = (Base) di;
+
+        d=(Derived) b2;  // OK bez RuntimeExceptiona
+
+        System.out.println("");
+    }
+}
+
+
+===================== 30
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        StringBuilder sb = new StringBuilder("Java");
+        String s = "Java";
+
+        if (sb.toString().equals(s.toString())) {
+            System.out.println("A");
+        } else if (sb.equals(s)) {
+            System.out.println("B");
+        } else {
+            System.out.println("C");
+        }
+
+        System.out.println("");
+    }
+}
+
+======================= 31
+
+
+package com.udayan.oca.pants;
+
+import com.udayan.oca.Shirt;
+
+public class Jeans {
+
+    public static void main(String[] args) {
+
+        Jeans trouser = new Jeans();
+        trouser.matchShirt();
+    }
+
+    public void matchShirt() {
+        String color = Shirt.getColor();
+        if (color.equals("Green")) {
+            System.out.println("Fit");
+        }
+    }
+}
+
+
+
+package com.udayan.oca;
+
+public class Shirt {
+
+    public static String getColor() {
+        return "Green";
+    }
+
+}
+
+
+===========================  32
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        if (args[0].equals("Hello") ? true : false) {
+            System.out.println("sssssssssssssssss");
+        }
+
+    }
+}
+
+=============================  33
+
+package com.udayan.oca;
+
+class MyException extends RuntimeException {}
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        try {
+            method1();
+        } catch (MyException me) {
+            System.out.println("aaaaaaaaaaaaaaa");
+        }
+
+    }
+
+    private static void method1() {
+        try {
+            throw Math.random()>0.5 ? new MyException() : new RuntimeException();
+        }  catch (RuntimeException re) {
+            System.out.println("bbbbbbbbbbbbbbbbbbbb");
+        }
+    }
+}
+
+
+======================  34
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        String str1 = "Java";
+        String str2 =  new String("java"); ;
+
+        boolean b = str2.equals(str1.toLowerCase());
+
+        System.out.println("");
+
+
+    }
+}
+
+
+====================  35
+package com.udayan.oca;
+
+public class Test {
+
+    static double area;
+    int b=2, h=3;
+    public static void main (String[] args) {
+
+        double p, b, h;
+
+        if (area==0) {
+            b=3;
+            h=4;
+            p=0.5;
+            area=p*b*h;
+        }
+        System.out.println(area);
+        System.out.println("");
+
+
+
+    }
+}
+
+========================= 37
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        int var1 = 200;
+        System.out.println(doCalc(var1));
+        System.out.println(var1);
+
+        
+    }
+
+     static int doCalc(int var1) {
+        return var1  = var1*2;
+
+    }
+}
+
+
+
+==================   38
+
+package com.udayan.oca;
+
+class Employee {
+    private String name;
+    private int age;
+    private int salary;
+
+    public Employee(String name, int age) {
+        setName(name);
+        setAge(age);
+        setSalary(2000);
+    }
+
+    public Employee (String name, int age, int salary) {
+        this(name, age);
+        setSalary(1);
+    }
+
+    public void setSalary(int i) {
+        this.salary=i;
+    }
+
+    public void setAge(int age) {
+        this.age=age;
+    }
+
+    public void setName(String name) {
+        this.name=name;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                '}';
+    }
+}
+
+public class Test {
+    public static void main (String[] args) {
+     //     Employee e1 = new Employee();
+     //     Employee e2 = new Employee("Jack", 50);
+        Employee e3 = new Employee("Tom", 40, 5000);
+
+        System.out.println(e3);
+    }
+}
+
+
+
+==========================  39
+
+package com.udayan.oca;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test {
+    public static void main (String[] args) {
+
+        List colors = new ArrayList();
+
+        colors.add("green");
+        colors.add("blue");
+        colors.add("red");
+        colors.add("yellow");
+        colors.remove(2);
+        colors.add(3, "cyan");
+        System.out.println(colors);
+
+
+        System.out.println("");
+    }
+}
+
+
+=====================  40
+
+package com.udayan.oca;
+
+class Employee {
+    public int salary;
+}
+
+class Manager extends Employee {
+    public int budget;
+}
+
+class Director extends Manager {
+    public int stockOpt;
+}
+
+public class Test {
+    public static void main (String[] args) {
+        Employee e = new Employee();
+        Manager m = new Manager();
+        Director d = new Director();
+
+        d.stockOpt=1_000;
+        e.budget=1;
+
+        System.out.println("");
+    }
+}
+
+
+=======================================
+
+class Employee {
+    public int salary;
+    void empl(){}
+    void whoIam(){
+        System.out.println("Employee");
+    }
+}
+
+class Manager extends Employee {
+    public int budget;
+    void manag(){}
+    void whoIam(){
+        System.out.println("Manager");
+    }
+}
+
+class Director extends Manager {
+    public int stockOpt;
+    void direc(){}
+    void whoIam(){
+        System.out.println("Director");
+    }
+}
+
+public class Test {
+    public static void main (String[] args) {
+        Employee e = new Employee();
+        Manager  m = new Manager();
+        Director d = new Director();
+
+       // Employee em = new Manager();
+      //  e = (Employee) em;
+
+        e.empl();
+        e.whoIam();
+        System.out.println(e.salary);
+
+
+        System.out.println("");
+    }
+}
+
+
+==========================  41
+
+package com.udayan.oca;
+
+public class Test {
+    public static void main (String[] args) {
+
+        int iVar = 100;
+        float fVar = 100.00f;
+        double dVar = 123;
+     //   byte -> short -> char -> int -> long -> float -> double
+     //   double b = a;  // Automatic casting: using an int as a double  (w doubla wpierdolić int - czyli w większe wpierdolić mniejsze)
+         //  fVar = iVar;
+         //  iVar = (int) fVar;
+         //fVar = (float) dVar;
+            dVar=fVar;
+            iVar= (int) dVar;
+            dVar=iVar;
+    }
+}
+
+
+==========================  42
+
+package com.udayan.oca;
+
+class Student {
+    String name;
+    public Student (String name) {
+        this.name=name;
+    }
+}
+
+public class Test {
+    public static void main (String[] args) {
+
+        Student[] students = new Student[3];
+        students[1] = new Student("ss");
+        students[2] = new Student("dd");
+
+
+        for (Student s : students) {
+            System.out.println(s.name);
+        }
+
+        System.out.println();
+    }
+}
+
+=====================  43
+
+package com.udayan.oca;
+
+
+public class Test {
+    public static void main (String[] args) {
+
+        StringBuilder sb1 = new StringBuilder("Duke");
+        String str1 = sb1.toString();
+
+       // String str2 = "Duke";    nie będzie == z str1
+       // String str2 = new String("Duke");  nie będzie == z str1
+       // String str2 = new String(str1);  nie będzie == z str1
+       // String str2 = sb1.toString();  nie będzie == z str1
+
+        String str2 = str1;  //  OK będzie == z str1
+
+        boolean b = str1==str2;
+
+
+        System.out.println();
+    }
+}
+
+
+====================   44
+
+package com.udayan.oca;
+
+
+public class Test {
+    public static void main (String[] args) {
+
+    Short s1 = 200;
+    Integer s2 = 400;
+
+    //String s3 = (String) (s1+s2);
+        Long s4 =  (long) s1+s2 ;
+
+
+        System.out.println();
+    }
+}
+
+
+==================== 49
+
+package com.udayan.oca;
+
+
+import java.io.IOException;
+
+class X {
+    public void printFileContent()  {
+        /**/
+        throw new IOException("ss");
+    }
+}
+
+public class Test {
+    public static void main (String[] args)  {
+
+    X xobj = new X();
+    xobj.printFileContent();
+
+    
+
+        System.out.println();
+    }
+}
+
+
+====================== 50
+
+package com.udayan.oca;
+
+import java.util.ArrayList;
+
+public class Test {
+    public static void main (String[] args)  {
+
+        ArrayList<Integer> points = new ArrayList<>();
+        points.add(1);
+        points.add(2);
+        points.add(3);
+        points.add(4);
+
+        points.add(null);
+        points.remove(1);
+        points.remove(null);
+
+        System.out.println();
+    }
+}
+
+
+===================  51
+
+package com.udayan.oca;
+
+import java.util.ArrayList;
+
+public class Test {
+    public static void main (String[] args)  {
+
+        System.out.println("ss" + (3+4));
+
+        System.out.println();
+    }
+}
+
+====================  52
+
+package com.udayan.oca;
+
+
+
+public class Test {
+    int a1;
+
+    public static void doProduct(int t) {
+        t=t*t;
+    }
+
+    public static void doString(String w) {
+        w.concat(" "+w);
+    }
+    public static void main (String[] args)  {
+
+        Test item = new Test();
+        item.a1=11;
+
+        String sb = "Hello";
+        Integer i = 10;
+
+        doProduct(i);
+        doString(sb);
+        doProduct(item.a1);
+        System.out.println(i +" "+ sb +""+ item.a1);
+
+        System.out.println();
+    }
+}
+
++++++++++++++++++++++++++++++++++++++++
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        String[][] arr = {{"A", "B", "C"}, {"D", "E"}};
+
+        for (int i=0; i<2; i++){
+            for (int j=0; j<arr[i].length; j++){
+                System.out.println(arr[i][j]);
+                if (arr[i][j].equals("B")){
+                    break;
+                }
+            }
+            continue;
+        }
+
+        System.out.println("");
+    }
+}
+
+=================  54
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args) {
+
+
+        Boolean[] b = new Boolean[2];
+
+        b[0] = new Boolean(Boolean.parseBoolean("true"));
+        b[1] = new Boolean(null);
+
+        System.out.println(b[0] +":"+ b[1]);
+        System.out.println("");
+    }
+}
+
+
+
+================= 55
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        String h = mask("1234-5678-9101-1121");
+     //   System.out.println(mask("1234-5678-9101-1121"));
+
+        System.out.println();
+    }
+
+    private static String mask(String sdd) {
+        String x = "XXXX-XXXX-XXXX-";
+        StringBuilder sb = new StringBuilder(sdd);
+        StringBuilder s = sb.insert(0, x);
+
+        return  sb.toString();
+    }
+}
+
+
+====================  56
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        int[] arr = {1, 2, 3, 4};
+        int i = 0;
+        do {
+            System.out.println(arr[i] + " "); //i=4   4
+            i++;
+        } while ( i < 5);
+
+        System.out.println();
+    }
+
+}
+
+
+======================  58
+
+package com.udayan.oca;
+
+public class Test {
+    @Override
+    public String toString() {
+        return "Test{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+    int x,y;
+    public Test(int a, int b) {
+        init(a,b);
+    }
+
+    public void init(int aa, int bb) {
+        this.x=aa*aa;
+        this.y=bb*bb;
+    }
+
+    public static void main (String[] args)  {
+
+        int x=3, y=5;
+        Test t = new Test(x,y);
+        System.out.println(t);
+
+
+        System.out.println();
+    }
+
+}
+
+
+
+
+======================  59
+
+package com.udayan.oca;
+
+public class Test {
+    int x,y;
+
+    public void doStuff(int a, int b) {
+        a=a;
+        b = this.x;
+    }
+
+    public void display() {
+        System.out.println(x +" "+ y);
+    }
+
+    public static void main (String[] args)  {
+
+        Test t1 = new Test();
+        t1.x=100;
+        t1.y=200;
+
+        Test t2 = new Test();
+        t2.doStuff(t1.x, t2.y);
+
+        t1.display();
+        t2.display();
+        System.out.println();
+    }
+
+}
+
+
+
+========================   60
+
+package com.udayan.oca;
+
+public class Test {
+
+    public static void main (String[] args)  {
+
+        int numbers [] = new int[2];
+        numbers[0]=10;
+        numbers[1]=20;
+
+        numbers = new int[41];
+
+        numbers[2]=90;
+        numbers[3]=190;
+
+        for (int y : numbers) {
+            System.out.println(y);
+        }
+
+        System.out.println();
+    }
+
+}
+
++++++++++++++++++++++++++++++++++++++++++++
+
+package com.udayan.oca;
+
+import com.sun.jndi.ldap.Ber;
+
+import javax.tools.Tool;
+
+class Base {
+    public int a=10;
+    public void s(){}
+    public void n(){}
+}
+
+class Derived extends Base {
+    public int a=20;
+    @Override
+    public void n(){}
+    public void m(){}
+    public void p(){}
+}
+
+class Derived2 extends Base {
+    public int a=20;
+    @Override
+    public void n(){}
+    public void m(){}
+    public void p(){}
+}
+
+public class Test {
+
+    public static void main (String[] args) {
+
+        Base b = new Base();
+        Base bd = new Derived();
+
+        b = (Base) bd;
+        Base c = new Derived2();
+
+        c = (Derived2) bd;  //java.lang.ClassCastException
+
+
+        System.out.println("");
+    }
+}
+
+
+=============================  61
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
