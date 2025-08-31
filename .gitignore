@@ -26,3 +26,5 @@ Thumbs.db
 # Pliki logów i inne artefakty
 *.log
 system-info.txt
+
+*.class
