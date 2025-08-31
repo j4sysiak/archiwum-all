@@ -1,0 +1,57 @@
+plugins {
+    id 'groovy'
+    // Dodajemy plugin Javy, aby mieć pełną kontrolę nad toolchainem
+    id 'java'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// === Ustawienie wersji Javy (nowoczesny sposób) ===
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+dependencies {
+    // --- Zależności Produkcyjne ---
+    // Aktualizujemy Groovy do wersji 3.x, która wspiera nowoczesną Javę.
+    // Używamy `groovy` zamiast `groovy-all` - to lepsza praktyka.
+    implementation 'org.codehaus.groovy:groovy:3.0.18'    // <-- Wersja Groovy
+
+    // DODAJ TĘ LINIĘ: Moduł zawierający m.in. JsonSlurper i JsonOutput
+    implementation 'org.codehaus.groovy:groovy-json:3.0.18'
+
+
+    // --- Zależności Testowe ---
+    // Aktualizujemy Spocka do wersji 2.x, która jest kompatybilna z Groovy 3.x   
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'    // <-- Wersja Spocka
+
+    // Spock 2.x działa na platformie JUnit 5, więc musimy ją dodać.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Zależności do serwera i klienta HTTP w testach
+    testImplementation 'com.sparkjava:spark-core:2.9.4'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.32'
+
+    // Awaitility - teraz możemy usunąć blok `exclude`, bo wersje Groovy są spójne.
+    testImplementation 'org.awaitility:awaitility-groovy:4.2.0'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.3'
+
+    // UWAGA: Usunęliśmy `junit:4.12`, `cglib` i `objenesis`,
+    // ponieważ Spock 2 i Gradle 8 zarządzają tymi zależnościami same.
+}
+
+// === Konfiguracja Testów ===
+// Mówimy Gradle, aby używał platformy JUnit 5 do uruchamiania testów.
+// To jest kluczowe dla Spocka 2.x.
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+}
