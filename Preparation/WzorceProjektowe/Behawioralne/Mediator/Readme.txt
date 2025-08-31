@@ -1,0 +1,3 @@
+
+
+https://www.udemy.com/course/solid-wzorce-projektowe-w-c-sharp-net-praktyczny-przewodnik/learn/lecture/26417284#overview
