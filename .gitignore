@@ -15,8 +15,9 @@ target/
 build/
 out/
 
-# Pliki specyficzne dla Mavena
+# Pliki specyficzne dla Mavena i gita
 .mvn/
+.git/
 
 # Pliki systemowe
 .DS_Store
